@@ -1,5 +1,15 @@
 # عکس‌ها
 
-عکس‌های واقعی مغازه/کارگاه و قطعات عتیقه را در همین پوشه قرار دهید، سپس در فایل
-`index.html` تگ‌های `placeholder-img` مربوطه را با `<img src="assets/images/نام-فایل.jpg" alt="...">`
-جایگزین کنید.
+عکس‌های فعلی از پست‌ها و گرید اینستاگرام `@homeantiquehome` گرفته و برش
+داده شده‌اند (بدون رابط کاربری اینستاگرام). اگر عکس‌های با کیفیت‌تر یا
+محصولات بیشتری داشتید، همین فایل‌ها را با فایل‌های جدید جایگزین کنید یا
+فایل جدید اضافه کرده و مسیرش را در HTML به‌روزرسانی کنید.
+
+فایل‌های فعلی:
+
+- `hero-mary-gregory.jpg`, `gallery-mary-gregory-clear.jpg` — ست سرویس شیشه Mary Gregory
+- `gallery-spoon-1.jpg`, `gallery-spoon-2.jpg`, `showroom-spoon.jpg` — قاشق‌های نقره‌ی عتیقه
+- `gallery-cup-holder.jpg` — جاعودی/نگه‌دارنده لیوان نقره
+- `gallery-napkin-holder.jpg` — جادستمال‌کاغذی نقره
+- `showroom-plate.jpg` — بشقاب پرسلن عتیقه
+- `about-owner.jpg` — عکس صاحب مجموعه

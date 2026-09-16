@@ -162,7 +162,9 @@ h1, h2, h3 {
   text-align: center;
   background:
     linear-gradient(180deg, rgba(51, 48, 31, 0.55), rgba(51, 48, 31, 0.55)),
-    repeating-linear-gradient(135deg, #7c5a3a 0 40px, #6a4c30 40px 80px);
+    url("../assets/images/hero-mary-gregory.jpg");
+  background-size: cover;
+  background-position: center;
   color: #fdf8f0;
 }
 
@@ -257,6 +259,18 @@ section {
   border-radius: 4px;
 }
 
+.photo-box {
+  overflow: hidden;
+  border-radius: 4px;
+  min-height: 260px;
+}
+
+.photo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* Info list (opening hours, address, etc.) */
 .info-list {
   list-style: none;
@@ -295,6 +309,13 @@ section {
   min-height: 200px;
   border-radius: 0;
   border: none;
+  overflow: hidden;
+}
+
+.item .item-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .item .item-body {

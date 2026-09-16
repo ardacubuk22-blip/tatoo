@@ -1,9 +1,9 @@
-# سایت عتیقه‌فروشی
+# Home Antique Home — سایت عتیقه‌فروشی
 
-یک سایت چندصفحه‌ای ساده و شیک برای معرفی یک کسب‌وکار عتیقه‌سازی/عتیقه‌فروشی
-(به زبان ترکی)، با ساختار الهام‌گرفته از سایت‌های گالری عتیقه (منوی
-Ana Sayfa / Hakkımızda / Vitrin / Galeri / İletişim، رنگ سبز زیتونی و
-طلایی، فونت‌های Playfair Display و Poppins).
+یک سایت چندصفحه‌ای ساده و شیک برای معرفی کسب‌وکار عتیقه‌فروشی
+**Home Antique Home** (استانبول، @homeantiquehome)، با ساختار الهام‌گرفته از
+سایت‌های گالری عتیقه (منوی Ana Sayfa / Hakkımızda / Vitrin / Galeri /
+İletişim، رنگ سبز زیتونی و طلایی، فونت‌های Playfair Display و Poppins).
 
 ## ساختار پروژه
 
@@ -15,18 +15,20 @@ galeri.html          گالری محصولات
 iletisim.html        تماس با ما (İletişim)
 css/style.css        استایل سایت
 js/script.js         منوی موبایل و هایلایت لینک فعال
-assets/images/        محل قرارگیری عکس‌های واقعی
+assets/images/        عکس‌های واقعی محصولات (برش‌خورده از اینستاگرام @homeantiquehome)
 ```
 
-## شخصی‌سازی
+## چیزهایی که هنوز باید تکمیل شوند
 
-در تمام فایل‌های HTML موارد زیر را با اطلاعات واقعی جایگزین کنید:
+در فایل `iletisim.html` مقادیر زیر هنوز جای‌گذاری (placeholder) هستند:
 
-- `[Antika Dükkanı Adı]` در تگ `<title>`، هدر و فوتر همه‌ی صفحات
-- متن‌های `hakkimizda.html` و `showroom.html` (تاریخچه، سال تاسیس، تخصص)
-- عکس‌ها: هر `placeholder-img` را با `<img src="assets/images/xxx.jpg" alt="...">` جایگزین کنید
-- کارت‌های `galeri.html`: نام و توضیح هر قطعه (و برچسب `badge-sold` برای قطعات فروخته‌شده)
-- در `iletisim.html`: `[Mağaza Adresi]`، `[E-posta Adresi]`، `[Telefon Numarası]`، لینک اینستاگرام و نقشه
+- `[Mağaza Adresi]` — آدرس دقیق فروشگاه
+- `[E-posta Adresi]` — ایمیل تماس
+- `[Telefon Numarası]` — شماره تلفن
+- نقشه‌ی گوگل (بخش `.contact-map`)
+
+بقیه‌ی محتوا (نام برند، متن معرفی، عکس‌های محصولات، لینک اینستاگرام) با
+اطلاعات واقعی پر شده است.
 
 ## اجرای محلی
 
