@@ -1,14 +1,15 @@
 :root {
-  --color-bg: #faf7f1;
-  --color-surface: #ffffff;
-  --color-sage: #666f57;
-  --color-sage-dark: #4d5440;
-  --color-text: #33301f;
-  --color-text-muted: #6f6656;
-  --color-text-on-sage: #f3efe4;
-  --color-accent: #a9814f;
-  --color-accent-dark: #7c5a3a;
-  --color-border: #e2d9c6;
+  --color-bg: #15120f;
+  --color-bg-alt: #1b1713;
+  --color-surface: #221d18;
+  --color-sage: #272c22;
+  --color-sage-dark: #1c2018;
+  --color-text: #ece4d6;
+  --color-text-muted: #a2957f;
+  --color-text-on-sage: #ece4d6;
+  --color-accent: #c19a5b;
+  --color-accent-dark: #dcbb80;
+  --color-border: #3b332a;
   --font-heading: "Playfair Display", serif;
   --font-body: "Poppins", sans-serif;
   --container-width: 1160px;
@@ -160,13 +161,13 @@ h1, h2, h3 {
 
 /* Hero */
 .hero {
-  min-height: 60vh;
+  min-height: 72vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   background:
-    linear-gradient(180deg, rgba(51, 48, 31, 0.55), rgba(51, 48, 31, 0.55)),
+    linear-gradient(180deg, rgba(12, 10, 8, 0.62), rgba(12, 10, 8, 0.78)),
     url("../assets/images/hero-mary-gregory.jpg");
   background-size: cover;
   background-position: center;
@@ -194,7 +195,7 @@ h1, h2, h3 {
   display: inline-block;
   padding: 13px 32px;
   background: var(--color-accent);
-  color: #fff;
+  color: #17130f;
   border-radius: 2px;
   font-size: 0.85rem;
   font-weight: 600;
@@ -252,7 +253,7 @@ section {
 }
 
 .placeholder-img {
-  background: #efe9db;
+  background: var(--color-bg-alt);
   border: 1px dashed var(--color-border);
   color: var(--color-text-muted);
   display: flex;
@@ -289,6 +290,110 @@ section {
 .info-list li strong {
   color: var(--color-accent-dark);
   margin-inline-end: 6px;
+}
+
+/* Kategori kartları (ana sayfa) */
+.categories {
+  background: var(--color-bg-alt);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 980px) {
+  .category-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.category-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+}
+
+.category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.62);
+  transition: transform 0.5s ease, filter 0.4s ease;
+}
+
+.category-card:hover img {
+  transform: scale(1.05);
+  filter: brightness(0.75);
+}
+
+.category-card-label {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 20px 18px;
+  background: linear-gradient(transparent, rgba(10, 8, 6, 0.85));
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: #f3ead9;
+}
+
+.category-card-label em {
+  display: block;
+  margin-top: 4px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-style: normal;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+}
+
+/* Geniş atmosfer bandı */
+.band {
+  position: relative;
+  padding: 120px 24px;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 8, 6, 0.74);
+}
+
+.band-inner {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.band-quote {
+  margin: 0 0 0.6em;
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: #f3ead9;
+}
+
+.band-text {
+  margin: 0;
+  color: var(--color-text-muted);
 }
 
 /* Gallery / collection grid */
@@ -408,6 +513,12 @@ section {
   border: 1px solid var(--color-border);
   border-radius: 4px;
   overflow: hidden;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.item:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-3px);
 }
 
 /* Farklı en-boy oranlarındaki fotoğraflarda kartların aynı yükseklikte
@@ -465,7 +576,7 @@ section {
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: rgba(51, 48, 31, 0.6);
+  background: rgba(8, 7, 5, 0.78);
 }
 
 .modal {
@@ -515,6 +626,7 @@ section {
   font-family: inherit;
   font-size: 0.95rem;
   color: var(--color-text);
+  background: var(--color-bg);
 }
 
 .modal textarea {
@@ -618,7 +730,7 @@ section {
   height: 52px;
   border-radius: 50%;
   color: #fff;
-  box-shadow: 0 4px 14px rgba(51, 48, 31, 0.28);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -630,7 +742,7 @@ section {
 
 .floating-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(51, 48, 31, 0.35);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
 }
 
 .floating-whatsapp {

@@ -103,7 +103,7 @@
   font-family: inherit;
   font-size: 0.95rem;
   color: var(--color-text);
-  background: #fff;
+  background: var(--color-bg);
 }
 
 .admin-card textarea {
@@ -179,7 +179,7 @@
   height: 60px;
   border-radius: 3px;
   overflow: hidden;
-  background: #efe9db;
+  background: var(--color-bg-alt);
 }
 
 .admin-thumb img {
@@ -209,7 +209,7 @@
 .admin-note {
   margin: 6px 0 0;
   padding: 8px 10px;
-  background: #fff;
+  background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: 3px;
   font-size: 0.85rem;
