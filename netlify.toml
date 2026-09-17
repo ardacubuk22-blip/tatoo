@@ -1,0 +1,9 @@
+# Statik site — derleme adımı yok, dosyalar kök dizinden yayınlanır.
+[build]
+  publish = "."
+
+# Yönetim paneli arama motorlarına kapalı
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
