@@ -159,11 +159,27 @@ insert into public.site_settings (key, value) values
   ('instagram_url', 'https://www.instagram.com/homeantiquehome')
 on conflict (key) do nothing;
 
-insert into public.products (title, description, image_url, is_sold, sort_order) values
-  ('Mary Gregory Sürahi ve Bardak Takımı', 'El yapımı beyaz emaye figürlü, mavi cam üzerine altın yaldız detaylı antika set', 'assets/images/hero-mary-gregory.jpg', false, 1),
-  ('Mary Gregory Başucu Sürahisi', 'Şeffaf cam üzerine el boyaması figürlü antika başucu sürahisi', 'assets/images/gallery-mary-gregory-clear.jpg', true, 2),
-  ('Gümüş İşlemeli Servis Kaşığı', 'Melek figürlü, oyma işçilikli antika gümüş kaşık', 'assets/images/gallery-spoon-1.jpg', false, 3),
-  ('Gümüş İşlemeli Kaşık', 'Çiçek desenli sap işçiliğine sahip antika gümüş kaşık', 'assets/images/gallery-spoon-2.jpg', false, 4),
-  ('Gümüş Ayaklı Bardak Tutucusu', 'Filigran işlemeli, cam bardaklı antika set parçası', 'assets/images/gallery-cup-holder.jpg', false, 5),
-  ('Gümüş Peçetelik', 'Melek figürlü, dökme gümüş antika peçetelik', 'assets/images/gallery-napkin-holder.jpg', false, 6)
+insert into public.products (title, description, price, image_url, is_sold, sort_order) values
+  ('Mary Gregory Sürahi ve Bardak Takımı', 'El yapımı beyaz emaye figürlü, mavi cam üzerine altın yaldız detaylı antika set', null, 'assets/images/hero-mary-gregory.jpg', false, 1),
+  ('Mary Gregory Başucu Sürahisi', 'Şeffaf cam üzerine el boyaması figürlü antika başucu sürahisi', null, 'assets/images/gallery-mary-gregory-clear.jpg', true, 2),
+  ('Porselen Çay Servisi', 'Kabartma desenli, beyaz porselen çay ve kahve servisi', 11500, 'assets/images/porselen-cay-servisi.jpg', false, 3),
+  ('WMF Kapaklı Kutu', 'WMF imzalı, kabartma desenli ayaklı kapaklı kutu', 10000, 'assets/images/wmf-gumus-kutu.jpg', false, 4),
+  ('Manzara Desenli Tabak Seti', 'Mavi-beyaz manzara desenli, 4 parça tabak seti', 6500, 'assets/images/manzara-tabak-seti.jpg', false, 5),
+  ('Porselen Fincan Takımı', 'Melek kabartmalı, altın yaldız detaylı 3 parça porselen takım', 5500, 'assets/images/porselen-fincan-takimi.jpg', false, 6),
+  ('Zincir Askılı Vintage Çanta', 'Kuş figürlü kapak detaylı, zincir askılı çanta', 5500, 'assets/images/pirinc-zincirli-canta.jpg', false, 7),
+  ('Amber Cam Kadeh (6 Adet)', 'Amber renkli, dilimli gövdeli ayaklı kadeh', 4750, 'assets/images/amber-kadeh.jpg', false, 8),
+  ('Pirinç Şamdan (Çift)', 'Kazıma desenli, çift pirinç şamdan', null, 'assets/images/pirinc-samdan.jpg', false, 9),
+  ('Christofle Çatal Bıçak Takımı', 'Christofle imzalı çatal bıçak ve servis takımı', null, 'assets/images/christofle-catal-bicak-takimi.jpg', false, 10),
+  ('Çiçek Desenli Çerezlik Tabaklar', 'Gül desenli porselen çerezlik tabaklar ve işlemeli baharat kaşıkları', null, 'assets/images/cicek-desenli-tabaklar.jpg', false, 11),
+  ('Mavi-Beyaz Servis Tabakları', 'Manzara desenli, kulplu dikdörtgen porselen servis tabakları', null, 'assets/images/mavi-beyaz-servis-tabaklari.jpg', false, 12),
+  ('Çay Kaşığı Takımı', 'Klasik desenli, işlemeli çay kaşığı takımı', null, 'assets/images/gumus-cay-kasiklari.jpg', false, 13),
+  ('Çay Süzgeci', 'Altın yaldızlı hazneli, kabartma saplı çay süzgeci', null, 'assets/images/gumus-cay-suzgeci.jpg', false, 14),
+  ('Christofle Malmaison Tepsi', 'Christofle''nin ikonik Malmaison koleksiyonundan, inci bordürlü servis tepsisi', null, 'assets/images/gumus-servis-tepsisi.jpg', false, 15),
+  ('Kapaklı Bira Maşrapası', 'Kalaylı kapaklı, kabartma figürlü seramik bira maşrapası', null, 'assets/images/bira-masrapasi.jpg', false, 16),
+  ('Gümüş Çikolata Potu', '1868-1888 Paris yapımı, Paillard Frères damgalı 800 ayar gümüş çikolata potu', null, 'assets/images/gumus-cikolata-potu.jpg', false, 17),
+  ('Gümüş Kaplama Şamdan (Çift)', 'İnci bordürlü, uzun formlu gümüş kaplama şamdan çifti', null, 'assets/images/gumus-samdan-cift.jpg', false, 18),
+  ('Gümüş Kaplama Mumluk Koleksiyonu', 'Farklı boy ve formlarda gümüş kaplama mumluklar; bazıları çift olarak', null, 'assets/images/mumluk-koleksiyonu.jpg', false, 19),
+  ('Oval Gümüş Kaplama Tepsi', 'İnci bordürlü, ortası kabartma madalyonlu oval servis tepsisi', null, 'assets/images/oval-gumus-tepsi.jpg', false, 20),
+  ('Melek Figürlü Süt Sürahisi', 'Mat gövde üzerine beyaz melek kabartmalı porselen süt sürahisi', null, 'assets/images/melek-figurlu-surahi.jpg', false, 21),
+  ('Çiçek Motifli Peçetelik', 'Gümüş kaplama, çiçek motifli ajur işlemeli peçetelik', null, 'assets/images/gumus-pecetelik.jpg', true, 22)
 on conflict do nothing;

@@ -267,7 +267,7 @@ section {
 .photo-box {
   overflow: hidden;
   border-radius: 4px;
-  min-height: 260px;
+  aspect-ratio: 4 / 3;
 }
 
 .photo-box img {
@@ -309,9 +309,11 @@ section {
   overflow: hidden;
 }
 
+/* Farklı en-boy oranlarındaki fotoğraflarda kartların aynı yükseklikte
+   kalması için kare çerçeve; görsel ortalanarak kırpılır. */
 .item .item-img {
   position: relative;
-  min-height: 200px;
+  aspect-ratio: 1 / 1;
   border-radius: 0;
   border: none;
   overflow: hidden;
