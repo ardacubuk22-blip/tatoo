@@ -66,3 +66,13 @@ floatingContact.append(
   })
 );
 document.body.append(floatingContact);
+
+// Butonlar sayfanın en üstünde gizli, aşağı kaydırılınca görünür olur.
+const toggleFloatingContact = () => {
+  const scrolledDown = window.scrollY > window.innerHeight * 0.5;
+  floatingContact.classList.toggle("is-visible", scrolledDown);
+};
+
+toggleFloatingContact();
+window.addEventListener("scroll", toggleFloatingContact, { passive: true });
+window.addEventListener("resize", toggleFloatingContact, { passive: true });

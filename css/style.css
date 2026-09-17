@@ -495,6 +495,16 @@ section {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-16px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+}
+
+.floating-contact.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
 }
 
 .floating-btn {
