@@ -40,8 +40,8 @@
   <main>
     <section class="hero">
       <div class="hero-content">
-        <h1>Otantik Antikalar, Kalıcı Hikayeler</h1>
-        <p>Özgünlüğü ve geçmişi garantili, özenle seçilmiş antika ve koleksiyon eşyaları</p>
+        <h1 data-setting="hero_title">Otantik Antikalar, Kalıcı Hikayeler</h1>
+        <p data-setting="hero_subtitle">Özgünlüğü ve geçmişi garantili, özenle seçilmiş antika ve koleksiyon eşyaları</p>
         <a href="galeri.html" class="btn">Galeriyi Görüntüle</a>
       </div>
     </section>
@@ -53,7 +53,7 @@
         </div>
         <div>
           <h2>Hakkımızda</h2>
-          <p>
+          <p data-setting="about_short">
             Home Antique Home, İstanbul merkezli bir antika ve koleksiyon
             markasıdır. Gümüş, kristal ve porselenden oluşan özenle seçilmiş
             parçaları, birer hikaye taşıyan otantik eserler olarak sizlerle
@@ -69,7 +69,7 @@
         <h2 class="section-title">Seçkin Parçalar</h2>
         <div class="divider">✦</div>
 
-        <div class="collection-grid">
+        <div class="collection-grid" data-products data-limit="3">
           <article class="item">
             <div class="item-img"><img src="assets/images/gallery-spoon-1.jpg" alt="Gümüş işlemeli servis kaşığı" /></div>
             <div class="item-body">
@@ -102,7 +102,10 @@
     <section class="contact">
       <div class="container" style="text-align:center;">
         <h2>Ziyaretimize Bekleriz</h2>
-        <p>Bağdat Caddesi, İstanbul · <a href="tel:+905557370933">0555 737 09 33</a></p>
+        <p>
+          <span data-setting="address">Bağdat Caddesi, İstanbul</span> ·
+          <a href="tel:+905557370933" data-setting="phone" data-setting-href="tel">0555 737 09 33</a>
+        </p>
         <a href="iletisim.html" class="btn">İletişim Bilgileri</a>
       </div>
     </section>
@@ -112,12 +115,13 @@
     <div class="container footer-inner">
       <p>© <span class="year"></span> Home Antique Home — Tüm hakları saklıdır.</p>
       <div class="footer-links">
-        <a href="https://wa.me/905557370933" target="_blank" rel="noopener" class="footer-social">WhatsApp</a>
-        <a href="https://www.instagram.com/homeantiquehome" target="_blank" rel="noopener" class="footer-social">Instagram</a>
+        <a href="https://wa.me/905557370933" target="_blank" rel="noopener" class="footer-social" data-setting-href="whatsapp">WhatsApp</a>
+        <a href="https://www.instagram.com/homeantiquehome" target="_blank" rel="noopener" class="footer-social" data-setting-href="instagram">Instagram</a>
       </div>
     </div>
   </footer>
 
   <script src="js/script.js"></script>
+  <script type="module" src="js/public-site.js"></script>
 </body>
 </html>

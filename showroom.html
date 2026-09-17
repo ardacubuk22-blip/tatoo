@@ -48,17 +48,17 @@
           <img src="assets/images/showroom-plate.jpg" alt="Antika porselen tabak" />
         </div>
         <div>
-          <p>
+          <p data-setting="showroom_text">
             Antikaya tutkunuz ve İstanbul'dan özenle seçilmiş gümüş, kristal
             ve porselen parçalar sunuyoruz. Koleksiyonumuzda servis
             kaşıklarından peçeteliklere, bardak takımlarından dekoratif
             objelere kadar geniş bir yelpaze bulunmaktadır.
           </p>
           <ul class="info-list">
-            <li><strong>Adres:</strong> Bağdat Caddesi, İstanbul</li>
-            <li><strong>Telefon:</strong> <a href="tel:+905557370933">0555 737 09 33</a></li>
-            <li><strong>WhatsApp:</strong> <a href="https://wa.me/905557370933" target="_blank" rel="noopener">0555 737 09 33</a></li>
-            <li><strong>Instagram:</strong> <a href="https://www.instagram.com/homeantiquehome" target="_blank" rel="noopener">@homeantiquehome</a></li>
+            <li><strong>Adres:</strong> <span data-setting="address">Bağdat Caddesi, İstanbul</span></li>
+            <li><strong>Telefon:</strong> <a href="tel:+905557370933" data-setting="phone" data-setting-href="tel">0555 737 09 33</a></li>
+            <li><strong>WhatsApp:</strong> <a href="https://wa.me/905557370933" target="_blank" rel="noopener" data-setting="phone" data-setting-href="whatsapp">0555 737 09 33</a></li>
+            <li><strong>Instagram:</strong> <a href="https://www.instagram.com/homeantiquehome" target="_blank" rel="noopener" data-setting-href="instagram">@homeantiquehome</a></li>
           </ul>
         </div>
       </div>
@@ -88,12 +88,13 @@
     <div class="container footer-inner">
       <p>© <span class="year"></span> Home Antique Home — Tüm hakları saklıdır.</p>
       <div class="footer-links">
-        <a href="https://wa.me/905557370933" target="_blank" rel="noopener" class="footer-social">WhatsApp</a>
-        <a href="https://www.instagram.com/homeantiquehome" target="_blank" rel="noopener" class="footer-social">Instagram</a>
+        <a href="https://wa.me/905557370933" target="_blank" rel="noopener" class="footer-social" data-setting-href="whatsapp">WhatsApp</a>
+        <a href="https://www.instagram.com/homeantiquehome" target="_blank" rel="noopener" class="footer-social" data-setting-href="instagram">Instagram</a>
       </div>
     </div>
   </footer>
 
   <script src="js/script.js"></script>
+  <script type="module" src="js/public-site.js"></script>
 </body>
 </html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Yönetim Paneli | Home Antique Home</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+  <header class="admin-header">
+    <div>
+      <strong>Home Antique Home</strong>
+      <span>Yönetim Paneli</span>
+    </div>
+    <div class="admin-header-actions">
+      <a href="../index.html">Siteyi Gör</a>
+      <button type="button" id="logoutButton" hidden>Çıkış Yap</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <!-- Kurulum yapılmadıysa -->
+    <section id="setupNotice" class="admin-card" hidden>
+      <h2>Kurulum tamamlanmamış</h2>
+      <p>
+        Panelin çalışması için <code>js/config.js</code> dosyasındaki
+        <code>SUPABASE_URL</code> ve <code>SUPABASE_ANON_KEY</code> alanlarının
+        doldurulması gerekiyor. Adımlar için <code>SETUP.md</code> dosyasına bakın.
+      </p>
+    </section>
+
+    <!-- Giriş -->
+    <section id="loginView" class="admin-card" hidden>
+      <h2>Giriş</h2>
+      <form id="loginForm">
+        <label>E-posta<input type="email" name="email" required autocomplete="username" /></label>
+        <label>Şifre<input type="password" name="password" required autocomplete="current-password" /></label>
+        <button type="submit" class="btn">Giriş Yap</button>
+        <p class="form-status" id="loginStatus" role="status"></p>
+      </form>
+    </section>
+
+    <!-- Panel -->
+    <section id="appView" hidden>
+      <nav class="admin-tabs">
+        <button type="button" class="admin-tab is-active" data-tab="products">Ürünler</button>
+        <button type="button" class="admin-tab" data-tab="orders">Siparişler</button>
+        <button type="button" class="admin-tab" data-tab="settings">Site Ayarları</button>
+      </nav>
+
+      <!-- Ürünler -->
+      <div class="admin-panel" data-panel="products">
+        <div class="admin-card">
+          <h2 id="productFormTitle">Yeni Ürün</h2>
+          <form id="productForm">
+            <input type="hidden" name="id" />
+            <label>Ürün Adı *<input type="text" name="title" required /></label>
+            <label>Açıklama<textarea name="description" rows="3"></textarea></label>
+            <div class="admin-form-row">
+              <label>Fiyat (₺)<input type="number" name="price" step="0.01" min="0" /></label>
+              <label>Sıra<input type="number" name="sort_order" step="1" value="0" /></label>
+            </div>
+            <label class="admin-checkbox">
+              <input type="checkbox" name="is_sold" /> Satıldı olarak işaretle
+            </label>
+            <label>Fotoğraf<input type="file" name="image" accept="image/*" /></label>
+            <p class="admin-hint" id="currentImageHint" hidden></p>
+            <div class="admin-form-actions">
+              <button type="submit" class="btn">Kaydet</button>
+              <button type="button" class="btn btn-ghost" id="productFormReset" hidden>İptal</button>
+            </div>
+            <p class="form-status" id="productStatus" role="status"></p>
+          </form>
+        </div>
+
+        <div class="admin-card">
+          <h2>Ürün Listesi</h2>
+          <div id="productList" class="admin-list"></div>
+        </div>
+      </div>
+
+      <!-- Siparişler -->
+      <div class="admin-panel" data-panel="orders" hidden>
+        <div class="admin-card">
+          <h2>Siparişler ve Bilgi Talepleri</h2>
+          <div id="orderList" class="admin-list"></div>
+        </div>
+      </div>
+
+      <!-- Ayarlar -->
+      <div class="admin-panel" data-panel="settings" hidden>
+        <div class="admin-card">
+          <h2>Site Metinleri ve İletişim</h2>
+          <form id="settingsForm">
+            <label>Ana sayfa başlığı<input type="text" name="hero_title" /></label>
+            <label>Ana sayfa alt başlığı<textarea name="hero_subtitle" rows="2"></textarea></label>
+            <label>Ana sayfa kısa tanıtım<textarea name="about_short" rows="3"></textarea></label>
+            <label>Hakkımızda — 1. paragraf<textarea name="about_long_1" rows="4"></textarea></label>
+            <label>Hakkımızda — 2. paragraf<textarea name="about_long_2" rows="4"></textarea></label>
+            <label>Vitrin metni<textarea name="showroom_text" rows="4"></textarea></label>
+            <label>Adres<input type="text" name="address" /></label>
+            <label>Telefon / WhatsApp<input type="text" name="phone" /></label>
+            <label>E-posta<input type="email" name="email" /></label>
+            <label>Instagram adresi<input type="url" name="instagram_url" /></label>
+            <button type="submit" class="btn">Kaydet</button>
+            <p class="form-status" id="settingsStatus" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="admin.js"></script>
+</body>
+</html>

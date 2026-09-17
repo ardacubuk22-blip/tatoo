@@ -1,0 +1,261 @@
+.admin-body {
+  background: var(--color-bg);
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 18px 24px;
+  background: var(--color-sage);
+  color: var(--color-text-on-sage);
+}
+
+.admin-header strong {
+  font-family: var(--font-heading);
+  letter-spacing: 1px;
+  color: #fff;
+  margin-inline-end: 10px;
+}
+
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 0.9rem;
+}
+
+.admin-header-actions button {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: #fff;
+  border-radius: 2px;
+  padding: 7px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+
+.admin-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+}
+
+.admin-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.admin-card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1em;
+}
+
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.admin-tab {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.admin-tab.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+/* Formlar */
+.admin-card label {
+  display: block;
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.admin-card input,
+.admin-card textarea,
+.admin-card select {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  background: #fff;
+}
+
+.admin-card textarea {
+  resize: vertical;
+}
+
+.admin-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.admin-card .admin-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-card .admin-checkbox input {
+  width: auto;
+  margin: 0;
+}
+
+.admin-form-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--color-accent-dark);
+  border: 1px solid var(--color-accent-dark);
+}
+
+.btn-ghost:hover {
+  background: var(--color-accent-dark);
+  color: #fff;
+}
+
+.admin-hint {
+  margin: -6px 0 14px;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+/* Listeler */
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+}
+
+.admin-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-bg);
+}
+
+.admin-row-order {
+  align-items: flex-start;
+}
+
+.admin-thumb {
+  flex: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #efe9db;
+}
+
+.admin-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-row-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  line-height: 1.5;
+}
+
+.admin-row-info strong {
+  color: var(--color-text);
+  font-size: 0.98rem;
+}
+
+.admin-row-info span {
+  font-size: 0.85rem;
+}
+
+.admin-note {
+  margin: 6px 0 0;
+  padding: 8px 10px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  font-size: 0.85rem;
+}
+
+.admin-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-row-actions button {
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.admin-row-actions button:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-dark);
+}
+
+.admin-row-actions button.danger:hover {
+  border-color: #a33;
+  color: #a33;
+}
+
+.admin-row-actions select {
+  width: auto;
+  margin: 0;
+  padding: 7px 10px;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 640px) {
+  .admin-row {
+    flex-wrap: wrap;
+  }
+
+  .admin-form-row {
+    grid-template-columns: 1fr;
+  }
+}
