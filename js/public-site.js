@@ -13,6 +13,8 @@ const safeImageUrl = (url) =>
 function buildProductCard(product) {
   const article = document.createElement("article");
   article.className = "item";
+  if (product.category) article.dataset.category = product.category;
+  if (product.subcategory) article.dataset.subcategory = product.subcategory;
 
   const imgWrap = document.createElement("div");
   imgWrap.className = "item-img";
@@ -72,6 +74,73 @@ function renderProducts(products) {
     if (!visible.length) return;
     container.replaceChildren(...visible.map(buildProductCard));
   });
+}
+
+// --- Kategori filtresi ---------------------------------------------------
+
+const filterList = document.getElementById("filtersList");
+
+function applyFilter(slug) {
+  const cards = document.querySelectorAll("[data-products] .item");
+  let shown = 0;
+
+  cards.forEach((card) => {
+    const match =
+      slug === "all" ||
+      card.dataset.category === slug ||
+      card.dataset.subcategory === slug;
+    card.hidden = !match;
+    if (match) shown += 1;
+  });
+
+  filterList.querySelectorAll("a").forEach((link) => {
+    link.classList.toggle("is-active", link.dataset.filter === slug);
+  });
+
+  const label = filterList.querySelector(`a[data-filter="${slug}"]`);
+  const count = document.getElementById("resultCount");
+  count.textContent =
+    slug === "all"
+      ? `${shown} ürün gösteriliyor`
+      : `${label?.childNodes[0].textContent.trim() ?? ""} — ${shown} ürün`;
+}
+
+function currentFilter() {
+  const slug = location.hash.replace("#", "");
+  return slug && filterList.querySelector(`a[data-filter="${slug}"]`) ? slug : "all";
+}
+
+function refreshFilterCounts() {
+  const cards = [...document.querySelectorAll("[data-products] .item")];
+  filterList.querySelectorAll("a").forEach((link) => {
+    const slug = link.dataset.filter;
+    const total =
+      slug === "all"
+        ? cards.length
+        : cards.filter(
+            (c) => c.dataset.category === slug || c.dataset.subcategory === slug
+          ).length;
+    const badge = link.querySelector("span");
+    if (badge) badge.textContent = total;
+  });
+}
+
+if (filterList) {
+  const toggle = document.getElementById("filtersToggle");
+  toggle.addEventListener("click", () => {
+    const open = filterList.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(open));
+  });
+
+  filterList.addEventListener("click", (event) => {
+    const link = event.target.closest("a[data-filter]");
+    if (!link) return;
+    filterList.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
+  });
+
+  window.addEventListener("hashchange", () => applyFilter(currentFilter()));
+  applyFilter(currentFilter());
 }
 
 function applySettings(settings) {
@@ -179,7 +248,13 @@ async function submitOrder(event) {
 try {
   if (await getSupabase()) {
     const [products, settings] = await Promise.all([fetchProducts(), fetchSettings()]);
-    if (products?.length) renderProducts(products);
+    if (products?.length) {
+      renderProducts(products);
+      if (filterList) {
+        refreshFilterCounts();
+        applyFilter(currentFilter());
+      }
+    }
     if (settings) applySettings(settings);
   }
 } catch (error) {

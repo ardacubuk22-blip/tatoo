@@ -1,4 +1,5 @@
 import { getSupabase, formatPrice } from "../js/store.js";
+import { CATEGORIES } from "../js/categories.js";
 
 const el = (id) => document.getElementById(id);
 const BUCKET = "product-images";
@@ -42,6 +43,36 @@ async function start() {
   document.querySelectorAll(".admin-tab").forEach((tab) => {
     tab.addEventListener("click", () => selectTab(tab.dataset.tab));
   });
+
+  fillCategorySelect();
+  productForm.category.addEventListener("change", () => fillSubcategorySelect());
+}
+
+// --- Kategoriler --------------------------------------------------------
+
+function addOption(select, value, label) {
+  const option = document.createElement("option");
+  option.value = value;
+  option.textContent = label;
+  select.append(option);
+}
+
+function fillCategorySelect() {
+  const select = productForm.category;
+  select.replaceChildren();
+  addOption(select, "", "— Seçiniz —");
+  CATEGORIES.forEach((cat) => addOption(select, cat.slug, cat.label));
+  fillSubcategorySelect();
+}
+
+function fillSubcategorySelect(selected) {
+  const select = productForm.subcategory;
+  const category = CATEGORIES.find((c) => c.slug === productForm.category.value);
+  select.replaceChildren();
+  addOption(select, "", category?.children.length ? "— Seçiniz —" : "Alt kategori yok");
+  category?.children.forEach((child) => addOption(select, child.slug, child.label));
+  select.disabled = !category?.children.length;
+  if (selected) select.value = selected;
 }
 
 function showView(isLoggedIn) {
@@ -165,6 +196,8 @@ function fillProductForm(product) {
   productForm.price.value = product.price ?? "";
   productForm.sort_order.value = product.sort_order ?? 0;
   productForm.is_sold.checked = Boolean(product.is_sold);
+  productForm.category.value = product.category ?? "";
+  fillSubcategorySelect(product.subcategory ?? "");
   productForm.image.value = "";
 
   const hint = el("currentImageHint");
@@ -181,6 +214,7 @@ function fillProductForm(product) {
 function resetProductForm() {
   productForm.reset();
   productForm.id.value = "";
+  fillSubcategorySelect();
   el("productFormTitle").textContent = "Yeni Ürün";
   el("productFormReset").hidden = true;
   el("currentImageHint").hidden = true;
@@ -209,6 +243,8 @@ async function handleProductSubmit(event) {
     price: form.price.value === "" ? null : Number(form.price.value),
     sort_order: Number(form.sort_order.value) || 0,
     is_sold: form.is_sold.checked,
+    category: form.category.value || null,
+    subcategory: form.subcategory.value || null,
   };
 
   try {
