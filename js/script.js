@@ -67,12 +67,11 @@ floatingContact.append(
 );
 document.body.append(floatingContact);
 
-// Butonlar sayfanın en üstünde gizli, aşağı kaydırılınca görünür olur.
-const toggleFloatingContact = () => {
-  const scrolledDown = window.scrollY > window.innerHeight * 0.5;
-  floatingContact.classList.toggle("is-visible", scrolledDown);
-};
-
-toggleFloatingContact();
-window.addEventListener("scroll", toggleFloatingContact, { passive: true });
-window.addEventListener("resize", toggleFloatingContact, { passive: true });
+// Butonlar gizli durur, ancak sayfanın sonuna gelindiğinde (footer görününce) çıkar.
+const footerObserver = new IntersectionObserver(
+  ([entry]) => {
+    floatingContact.classList.toggle("is-visible", entry.isIntersecting);
+  },
+  { rootMargin: "0px 0px 60px 0px" }
+);
+footerObserver.observe(document.querySelector(".site-footer"));
