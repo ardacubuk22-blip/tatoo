@@ -84,8 +84,12 @@ function applySettings(settings) {
   document.querySelectorAll("[data-setting-href]").forEach((el) => {
     const kind = el.dataset.settingHref;
     if (kind === "tel" && phoneLink) el.href = `tel:${phoneLink}`;
-    if (kind === "whatsapp" && phoneLink)
-      el.href = `https://wa.me/${phoneLink.replace("+", "")}`;
+    if (kind === "whatsapp" && phoneLink) {
+      const message = el.dataset.waText
+        ? `?text=${encodeURIComponent(el.dataset.waText)}`
+        : "";
+      el.href = `https://wa.me/${phoneLink.replace("+", "")}${message}`;
+    }
     if (kind === "email" && settings.email) el.href = `mailto:${settings.email}`;
     if (kind === "instagram" && settings.instagram_url)
       el.href = settings.instagram_url;

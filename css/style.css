@@ -485,6 +485,66 @@ section {
   min-height: 280px;
 }
 
+/* Sabit WhatsApp / Instagram butonları */
+.floating-contact {
+  position: fixed;
+  inset-inline-end: 18px;
+  bottom: 18px;
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.floating-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(51, 48, 31, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.floating-btn svg {
+  width: 26px;
+  height: 26px;
+  fill: currentColor;
+}
+
+.floating-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(51, 48, 31, 0.35);
+}
+
+.floating-whatsapp {
+  background: #25d366;
+}
+
+.floating-instagram {
+  background: linear-gradient(45deg, #f09433, #dc2743 45%, #bc1888);
+}
+
+@media (max-width: 640px) {
+  .floating-contact {
+    inset-inline-end: 14px;
+    bottom: 14px;
+    gap: 10px;
+  }
+
+  .floating-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .floating-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
 /* Footer */
 .site-footer {
   background: var(--color-sage-dark);
