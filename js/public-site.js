@@ -63,6 +63,7 @@ function buildProductCard(product) {
     ? `Merhaba! Sitenizdeki ${product.title} satılmış görünüyor, benzer bir parçanız var mı?`
     : `Merhaba! Sitenizdeki ${product.title} ile ilgileniyorum.`;
   wa.textContent = product.is_sold ? "Benzerini Sor" : "WhatsApp ile Sor";
+  wa.href = productWhatsAppHref(wa.dataset.waText);
   body.append(wa);
 
   if (!product.is_sold) {
@@ -154,15 +155,23 @@ if (filterList) {
   applyFilter(currentFilter());
 }
 
-// Her ürün kartındaki WhatsApp bağlantısını, güncel numara ve sayfa adresiyle kurar.
+// Numara statik markup'tan gelir; yönetim panelinde değiştirilirse güncellenir.
+// Veritabanından gelen kartlar da bu numarayla anında bağlantı alır.
+let contactNumber =
+  document.querySelector("[data-wa-product]")?.href.match(/wa\.me\/(\d+)/)?.[1] ?? "";
+
+function productWhatsAppHref(text) {
+  if (!contactNumber) return "";
+  const message = `${text}\n${location.origin + location.pathname}`;
+  return `https://wa.me/${contactNumber}?text=${encodeURIComponent(message)}`;
+}
+
 function wireProductWhatsApp(phone) {
   const number = toPhoneLink(phone).replace("+", "");
-  if (!number) return;
-  const pageUrl = location.origin + location.pathname;
+  if (number) contactNumber = number;
 
   document.querySelectorAll("[data-wa-product]").forEach((link) => {
-    const message = `${link.dataset.waText}\n${pageUrl}`;
-    link.href = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+    link.href = productWhatsAppHref(link.dataset.waText);
   });
 }
 
@@ -270,11 +279,8 @@ async function submitOrder(event) {
 
 // Veri çekilemezse (veya Supabase henüz kurulmadıysa) sayfadaki statik
 // içerik olduğu gibi kalır.
-// Statik kartlardaki bağlantılara sayfa adresini ekle (numara zaten markup'ta).
-const markupPhone = document
-  .querySelector("[data-wa-product]")
-  ?.href.match(/wa\.me\/(\d+)/)?.[1];
-if (markupPhone) wireProductWhatsApp(markupPhone);
+// Statik kartlardaki bağlantılara sayfa adresini ekle.
+wireProductWhatsApp(contactNumber);
 
 try {
   if (await getSupabase()) {
