@@ -160,6 +160,8 @@ function applySettings(settings) {
       el.href = `https://wa.me/${phoneLink.replace("+", "")}${message}`;
     }
     if (kind === "email" && settings.email) el.href = `mailto:${settings.email}`;
+    if (kind === "map" && settings.address)
+      el.href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(settings.address)}`;
     if (kind === "instagram" && settings.instagram_url)
       el.href = settings.instagram_url;
   });

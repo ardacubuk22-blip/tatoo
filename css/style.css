@@ -735,8 +735,33 @@ section {
   color: #fff;
 }
 
-.contact-map {
-  min-height: 280px;
+.contact-map iframe {
+  display: block;
+  width: 100%;
+  height: 300px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  /* Harita yüklenemezse boşluk site temasıyla uyumlu kalsın */
+  background: var(--color-bg-alt);
+}
+
+.map-link {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 10px 22px;
+  border: 1px solid var(--color-accent-dark);
+  border-radius: 2px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.map-link:hover {
+  background: var(--color-accent-dark);
+  color: #17130f;
 }
 
 /* Sabit WhatsApp / Instagram butonları */
