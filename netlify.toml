@@ -7,3 +7,26 @@
   for = "/admin/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
+
+# Dosya adları sürümlenmediği için sayfa, stil ve script her açılışta
+# kontrol edilsin; aksi halde ziyaretçi eski sürümde kalabiliyor.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Görseller değişmiyor, uzun süre önbellekte kalabilir
+[[headers]]
+  for = "/assets/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
