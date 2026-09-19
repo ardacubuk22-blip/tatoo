@@ -54,11 +54,22 @@ function buildProductCard(product) {
     body.append(priceEl);
   }
 
+  const wa = document.createElement("a");
+  wa.className = "btn btn-whatsapp";
+  wa.target = "_blank";
+  wa.rel = "noopener";
+  wa.dataset.waProduct = "";
+  wa.dataset.waText = product.is_sold
+    ? `Merhaba! Sitenizdeki ${product.title} satılmış görünüyor, benzer bir parçanız var mı?`
+    : `Merhaba! Sitenizdeki ${product.title} ile ilgileniyorum.`;
+  wa.textContent = product.is_sold ? "Benzerini Sor" : "WhatsApp ile Sor";
+  body.append(wa);
+
   if (!product.is_sold) {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "btn btn-small";
-    button.textContent = "Sipariş / Bilgi Al";
+    button.className = "btn-link";
+    button.textContent = "Sipariş / Bilgi Formu";
     button.addEventListener("click", () => openOrderModal(product));
     body.append(button);
   }
@@ -141,6 +152,18 @@ if (filterList) {
 
   window.addEventListener("hashchange", () => applyFilter(currentFilter()));
   applyFilter(currentFilter());
+}
+
+// Her ürün kartındaki WhatsApp bağlantısını, güncel numara ve sayfa adresiyle kurar.
+function wireProductWhatsApp(phone) {
+  const number = toPhoneLink(phone).replace("+", "");
+  if (!number) return;
+  const pageUrl = location.origin + location.pathname;
+
+  document.querySelectorAll("[data-wa-product]").forEach((link) => {
+    const message = `${link.dataset.waText}\n${pageUrl}`;
+    link.href = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+  });
 }
 
 function applySettings(settings) {
@@ -247,6 +270,12 @@ async function submitOrder(event) {
 
 // Veri çekilemezse (veya Supabase henüz kurulmadıysa) sayfadaki statik
 // içerik olduğu gibi kalır.
+// Statik kartlardaki bağlantılara sayfa adresini ekle (numara zaten markup'ta).
+const markupPhone = document
+  .querySelector("[data-wa-product]")
+  ?.href.match(/wa\.me\/(\d+)/)?.[1];
+if (markupPhone) wireProductWhatsApp(markupPhone);
+
 try {
   if (await getSupabase()) {
     const [products, settings] = await Promise.all([fetchProducts(), fetchSettings()]);
@@ -257,7 +286,10 @@ try {
         applyFilter(currentFilter());
       }
     }
-    if (settings) applySettings(settings);
+    if (settings) {
+      applySettings(settings);
+      wireProductWhatsApp(settings.phone);
+    }
   }
 } catch (error) {
   console.error("İçerik yüklenemedi:", error);
