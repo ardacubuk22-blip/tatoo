@@ -135,6 +135,29 @@ SETTINGS = {
         "Her parçanın orijinalliğine ve durumuna önem veriyoruz; ürünlerimizin çoğu imzalı "
         "ya da damgalı dönem eserleridir. Amacımız, geçmişin özenle işlenmiş eserlerini "
         "günümüz evlerine taşımak ve müşterilerimize güvenilir bir alışveriş deneyimi sunmaktır.",
+    "sss_orijinallik":
+        "Koleksiyonumuzdaki parçaların büyük bölümü Avrupa'dan tek tek seçilerek getirilen, "
+        "dönemine ait orijinal eserlerdir. Bir parçanın üzerinde üretici imzası, damga ya da "
+        "ayar işareti varsa bunu ürün açıklamasında belirtiyoruz. Kaynağından emin olmadığımız "
+        "bir parça için \"orijinal\" ifadesini kullanmıyoruz.",
+    "sss_odeme":
+        "Site üzerinden ödeme alınmıyor. Siparişiniz WhatsApp üzerinden netleştikten sonra "
+        "ödeme yöntemini birlikte belirliyoruz.",
+    "sss_kargo":
+        "Türkiye'nin her yerine gönderim yapıyoruz. Cam, porselen ve kristal gibi kırılabilir "
+        "parçalar çift katmanlı ve dolgulu olarak özel paketlenir. İstanbul içinde elden teslim "
+        "de mümkündür; ayrıntıları WhatsApp'tan konuşabiliriz.",
+    "sss_iade":
+        "Uzaktan yapılan satışlarda tüketici mevzuatının tanıdığı cayma hakkı geçerlidir. "
+        "Parçayı teslim aldıktan sonra fikrinizi değiştirirseniz bizimle iletişime geçin; süreci "
+        "birlikte yürütelim. Antika parçalarda yaşına bağlı kullanım izleri kusur sayılmaz, bu "
+        "izleri ürün açıklamasında ve fotoğraflarda olabildiğince açık gösteriyoruz.",
+    "sss_bakim":
+        "Gümüş ve gümüş kaplama parçaları yumuşak bir bezle kuru olarak silin; aşındırıcı sünger "
+        "ve bulaşık makinesi kaplamaya zarar verir. Kararmayı geciktirmek için havayla temasın "
+        "azaldığı, kapalı bir yerde saklayın. Altın yaldızlı porselen ve cam eserleri ılık suda "
+        "elde yıkayın; yaldız mikrodalgaya ve makineye dayanmaz. Kristal ve ince camı ani "
+        "sıcaklık değişiminden koruyun.",
     "showroom_text":
         "Avrupa'nın farklı ülkelerinden getirdiğimiz gümüş kaplama sofra takımları, "
         "porselen servisler, cam eserler ve dekoratif objeler vitrinimizde sizi bekliyor. "
@@ -230,6 +253,59 @@ def write_category_cards():
         html[:start] + "\n" + "\n".join(cards) + "\n        " + html[end:],
         encoding="utf-8")
     print(f"index.html: {len(cards)} kategori kartı")
+
+
+def write_footer():
+    """Alt bilgi tüm sayfalarda aynı olsun; kategoriler sayımdan gelir."""
+    kategoriler = "\n".join(
+        f'            <li><a href="galeri.html#{slug}">{escape(label)}</a></li>'
+        for slug, label, _ in CATEGORIES)
+    footer = f"""  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3>Kurumsal</h3>
+        <ul>
+          <li><a href="hakkimizda.html">Hakkımızda</a></li>
+          <li><a href="showroom.html">Vitrin</a></li>
+          <li><a href="sss.html">Sıkça Sorulan Sorular</a></li>
+          <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Koleksiyon</h3>
+        <ul>
+          <li><a href="galeri.html">Tüm Parçalar</a></li>
+{kategoriler}
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Bize Ulaşın</h3>
+        <p class="footer-contact">
+          <span data-setting="address">Bağdat Caddesi, İstanbul</span><br />
+          <a href="tel:+905557370933" data-setting="phone" data-setting-href="tel">0555 737 09 33</a><br />
+          <a href="mailto:homeantiquehome@gmail.com" data-setting="email" data-setting-href="email">homeantiquehome@gmail.com</a>
+        </p>
+        <div class="footer-links">
+          <a href="https://wa.me/{WHATSAPP_NUMBER}" target="_blank" rel="noopener" class="footer-social" data-setting-href="whatsapp">WhatsApp</a>
+          <a href="https://www.instagram.com/homeantiquehome" target="_blank" rel="noopener" class="footer-social" data-setting-href="instagram">Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>&copy; <span class="year"></span> Home Antique Home — Tüm hakları saklıdır.</p>
+      <a href="gizlilik.html">Gizlilik ve Kişisel Veriler</a>
+    </div>
+  </footer>"""
+
+    for path in sorted(ROOT.glob("*.html")):
+        html = path.read_text(encoding="utf-8")
+        start = html.index('  <footer class="site-footer">')
+        end = html.index("</footer>") + len("</footer>")
+        path.write_text(html[:start] + footer + html[end:], encoding="utf-8")
+    print("alt bilgi tüm sayfalara yazıldı")
 
 
 def write_nav():
@@ -424,6 +500,7 @@ replace_grid(ROOT / "showroom.html", featured_products(), indent="          ")
 replace_grid(ROOT / "index.html", PRODUCTS, limit=6, indent="          ")
 update_settings_html()
 write_nav()
+write_footer()
 write_category_cards()
 write_categories_module()
 write_seed()
