@@ -81,11 +81,16 @@ function buildProductCard(product) {
 
 function renderProducts(products) {
   document.querySelectorAll("[data-products]").forEach((container) => {
-    // Vitrin yalnızca panelde "Vitrinde göster" işaretlenen parçaları listeler.
-    const pool =
-      "featured" in container.dataset
-        ? products.filter((product) => product.is_featured)
-        : products;
+    // Vitrin yalnızca panelde "Vitrinde göster" işaretlenen parçaları listeler;
+    // ana sayfadaki "Yeni Ürünler" ise en son eklenenleri gösterir.
+    let pool = products;
+    if ("featured" in container.dataset) {
+      pool = products.filter((product) => product.is_featured);
+    } else if ("newest" in container.dataset) {
+      pool = [...products].sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+    }
     const limit = Number(container.dataset.limit) || pool.length;
     const visible = pool.slice(0, limit);
     if (!visible.length) return;

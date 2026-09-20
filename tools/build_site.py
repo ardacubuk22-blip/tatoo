@@ -27,6 +27,15 @@ CATEGORIES = [
     ("dekoratif", "Dekoratif Objeler", []),
 ]
 
+# Ana sayfadaki kategori kartlarının kapak görselleri
+CATEGORY_IMAGES = {
+    "gumus": "gumus-cikolata-potu.jpg",
+    "aydinlatma": "gumus-samdan-cift.jpg",
+    "porselen": "porselen-cay-servisi.jpg",
+    "cam": "amber-kadeh.jpg",
+    "dekoratif": "pirinc-zincirli-canta.jpg",
+}
+
 # (görsel, başlık, açıklama, fiyat, satıldı, kategori, alt kategori)
 PRODUCTS = [
     ("hero-mary-gregory.jpg", "Mary Gregory Sürahi ve Bardak Takımı",
@@ -200,6 +209,29 @@ def submenu_markup(indent="            "):
     return "\n".join(indent + line for line in lines)
 
 
+def write_category_cards():
+    """Ana sayfadaki kategori kartları — parça sayıları sayımdan gelir."""
+    path = ROOT / "index.html"
+    html = path.read_text(encoding="utf-8")
+    per = counts()
+    cards = []
+    for slug, label, _ in CATEGORIES:
+        cards.append(
+            f'          <a class="category-card" href="galeri.html#{slug}">\n'
+            f'            <span class="category-card-img">\n'
+            f'              <img src="assets/images/{CATEGORY_IMAGES[slug]}"'
+            f' alt="{escape(label)}" loading="lazy" />\n'
+            f'            </span>\n'
+            f'            <span class="category-card-label">{escape(label)}'
+            f'<em>{per.get(slug, 0)} parça</em></span>\n'
+            f'          </a>')
+    start, end = find_block(html, r'<div class="category-grid">')
+    path.write_text(
+        html[:start] + "\n" + "\n".join(cards) + "\n        " + html[end:],
+        encoding="utf-8")
+    print(f"index.html: {len(cards)} kategori kartı")
+
+
 def write_nav():
     """Galeri bağlantısını, kategorileri taşıyan açılır menüye çevirir."""
     plain = '<li><a href="galeri.html">Galeri</a></li>'
@@ -209,6 +241,13 @@ def write_nav():
         '            <button type="button" class="submenu-toggle"\n'
         '                    aria-label="Galeri kategorileri" aria-expanded="false"></button>\n'
         + submenu_markup() + "\n"
+        '          </li>'
+    )
+    social = (
+        '<li class="nav-social">\n'
+        '            <a href="https://www.instagram.com/homeantiquehome" target="_blank"\n'
+        '               rel="noopener" data-setting-href="instagram"\n'
+        '               aria-label="Instagram sayfamız"><span>Instagram</span></a>\n'
         '          </li>'
     )
     pattern = re.compile(
@@ -222,8 +261,13 @@ def write_nav():
             if not n:
                 print(f"!! {path.name}: Galeri menüsü bulunamadı")
                 continue
+        # İletişim'in sağına Instagram bağlantısı
+        if 'class="nav-social"' not in html:
+            html = html.replace(
+                '<li><a href="iletisim.html">İletişim</a></li>',
+                '<li><a href="iletisim.html">İletişim</a></li>\n          ' + social, 1)
         path.write_text(html, encoding="utf-8")
-    print("menüye kategori listesi yazıldı")
+    print("menüye kategori listesi ve Instagram bağlantısı yazıldı")
 
 
 def featured_products():
@@ -367,6 +411,7 @@ replace_grid(ROOT / "showroom.html", featured_products(), indent="          ")
 replace_grid(ROOT / "index.html", PRODUCTS, limit=6, indent="          ")
 update_settings_html()
 write_nav()
+write_category_cards()
 write_categories_module()
 write_seed()
 
