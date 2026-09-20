@@ -264,6 +264,50 @@ h1, h2, h3 {
   color: var(--color-text-muted);
 }
 
+/* Diğer dil önerisi — başlığın hemen altında ince bir şerit */
+.lang-offer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 18px;
+  padding: 11px 48px 11px 24px;
+  position: relative;
+  background: var(--color-petrol-dark);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.82rem;
+  color: #d8d4c4;
+  text-align: center;
+}
+
+.lang-offer-action {
+  color: var(--color-accent-dark);
+  font-weight: 600;
+  border-bottom: 1px solid currentColor;
+}
+
+.lang-offer-action:hover {
+  color: #fff;
+}
+
+.lang-offer-close {
+  position: absolute;
+  inset-inline-end: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 6px;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.lang-offer-close:hover {
+  color: #fff;
+}
+
 /* Dil değiştirici — masaüstünde kısa kod, telefonda dilin adı */
 .nav-lang a {
   border-bottom: none;

@@ -28,6 +28,83 @@ document.querySelectorAll(".nav-list a").forEach((link) => {
   }
 });
 
+// Tarayıcısının dili sayfanın dilinden farklı olan ziyaretçiye diğer sürümü
+// bir kez önerir. Yönlendirme yok — karar ziyaretçinin.
+const LANG_CHOICE_KEY = "hah-lang-choice";
+
+function rememberLangChoice() {
+  // Gizli sekmede veya site verisi kapalıyken yazma hata verebilir.
+  try {
+    localStorage.setItem(LANG_CHOICE_KEY, "1");
+  } catch {
+    /* hatırlanamadıysa öneri bir daha çıkabilir, sorun değil */
+  }
+}
+
+function langAlreadyChosen() {
+  try {
+    return localStorage.getItem(LANG_CHOICE_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+const LANG_OFFER = {
+  en: {
+    message: "This page is also available in English.",
+    action: "View in English",
+    close: "Dismiss",
+  },
+  tr: {
+    message: "Bu sayfa Türkçe olarak da mevcut.",
+    action: "Türkçe'ye geç",
+    close: "Kapat",
+  },
+};
+
+const langLink = document.querySelector(".nav-lang a");
+if (langLink) langLink.addEventListener("click", rememberLangChoice);
+
+function offerOtherLanguage() {
+  if (!langLink || langAlreadyChosen()) return;
+
+  const pageLang = document.documentElement.lang === "en" ? "en" : "tr";
+  const speaksTurkish = (navigator.languages ?? [navigator.language ?? ""]).some(
+    (code) => String(code).toLowerCase().startsWith("tr")
+  );
+  const offered = speaksTurkish ? "tr" : "en";
+  if (offered === pageLang) return;
+
+  const text = LANG_OFFER[offered];
+  const bar = document.createElement("div");
+  bar.className = "lang-offer";
+  bar.lang = offered;
+
+  const message = document.createElement("span");
+  message.textContent = text.message;
+
+  const action = document.createElement("a");
+  action.href = langLink.href;
+  action.className = "lang-offer-action";
+  action.textContent = text.action;
+  action.addEventListener("click", rememberLangChoice);
+
+  const close = document.createElement("button");
+  close.type = "button";
+  close.className = "lang-offer-close";
+  close.setAttribute("aria-label", text.close);
+  close.textContent = "×";
+  close.addEventListener("click", () => {
+    rememberLangChoice();
+    bar.remove();
+  });
+
+  bar.append(message, action, close);
+  document.querySelector(".site-header")?.after(bar);
+}
+
+offerOtherLanguage();
+
 // Her sayfada görünen WhatsApp / Instagram butonları.
 // Numara ve Instagram adresi yönetim panelinden değiştirilebilir
 // (data-setting-href ile js/public-site.js günceller).
