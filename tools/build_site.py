@@ -5,6 +5,8 @@ import re
 from html import escape
 from urllib.parse import quote
 
+import i18n
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 
 # slug -> (etiket, [(alt slug, alt etiket), ...])
@@ -169,6 +171,32 @@ SETTINGS = {
 
 WHATSAPP_NUMBER = "905557370933"
 
+# Üretim sırasında hangi dilde olduğumuzu tutar; her iki dil de aynı
+# fonksiyonlardan geçer, yalnızca bu bağlam değişir.
+LANG = None
+
+
+def t(key):
+    return LANG["ui"][key]
+
+
+def page(tr_name):
+    """Türkçe dosya adını geçerli dildeki karşılığına çevirir."""
+    return LANG["pages"][tr_name]
+
+
+def asset(path):
+    """İngilizce sayfalar en/ altında olduğu için bir üst dizine çıkar."""
+    return LANG["prefix"] + path
+
+
+def label(slug, turkish):
+    return turkish if LANG["code"] == "tr" else i18n.CATEGORY_LABELS_EN[slug]
+
+
+def product_text(title, description):
+    return (title, description) if LANG["code"] == "tr" else i18n.PRODUCTS_EN[title]
+
 # Vitrin sayfasında öne çıkarılan parçalar (başlıkla eşleşir).
 # Yönetim panelinden de her ürün için "Vitrinde göster" kutusu var.
 FEATURED = [
@@ -185,29 +213,29 @@ def tl(price):
 
 
 def whatsapp_text(title, sold):
-    if sold:
-        return f"Merhaba! Sitenizdeki {title} satılmış görünüyor, benzer bir parçanız var mı?"
-    return f"Merhaba! Sitenizdeki {title} ile ilgileniyorum."
+    return t("wa_similar" if sold else "wa_interested").format(title=title)
 
 
 def card(product, indent="            "):
-    image, title, description, price, sold, cat, sub = product
-    badge = '\n                <span class="badge-sold">Satıldı</span>' if sold else ""
+    image, tr_title, tr_description, price, sold, cat, sub = product
+    title, description = product_text(tr_title, tr_description)
+    badge = (f'\n                <span class="badge-sold">{t("sold")}</span>'
+             if sold else "")
     price_line = f'\n                <p class="item-price">{tl(price)}</p>' if price else ""
     sub_attr = f' data-subcategory="{sub}"' if sub else ""
     text = whatsapp_text(title, sold)
-    label = "Benzerini Sor" if sold else "WhatsApp ile Sor"
+    button = t("ask_similar") if sold else t("ask")
     href = f"https://wa.me/{WHATSAPP_NUMBER}?text={quote(text)}"
     lines = [
         f'<article class="item" data-category="{cat}"{sub_attr}>',
         '  <div class="item-img">',
-        f'    <img src="assets/images/{image}" alt="{title}" loading="lazy" />{badge}',
+        f'    <img src="{asset("assets/images/")}{image}" alt="{title}" loading="lazy" />{badge}',
         '  </div>',
         '  <div class="item-body">',
         f'    <h3>{title}</h3>',
         f'    <p>{description}</p>{price_line}',
         f'    <a class="btn btn-whatsapp" href="{href}" target="_blank" rel="noopener"',
-        f'       data-wa-product data-wa-text="{escape(text, quote=True)}">{label}</a>',
+        f'       data-wa-product data-wa-text="{escape(text, quote=True)}">{button}</a>',
         '  </div>',
         '</article>',
     ]
@@ -216,17 +244,20 @@ def card(product, indent="            "):
 
 def submenu_markup(indent="            "):
     """Menüdeki Galeri başlığının altına düşen kategori ve alt kategori listesi."""
+    gallery = page("galeri.html")
     lines = ['<ul class="submenu">']
-    for slug, label, subs in CATEGORIES:
+    for slug, tr_label, subs in CATEGORIES:
+        text = escape(label(slug, tr_label))
         if not subs:
-            lines.append(f'  <li><a href="galeri.html#{slug}">{escape(label)}</a></li>')
+            lines.append(f'  <li><a href="{gallery}#{slug}">{text}</a></li>')
             continue
         lines.append("  <li>")
-        lines.append(f'    <a href="galeri.html#{slug}">{escape(label)}</a>')
+        lines.append(f'    <a href="{gallery}#{slug}">{text}</a>')
         lines.append('    <ul class="submenu-sub">')
-        for sub_slug, sub_label in subs:
+        for sub_slug, sub_tr in subs:
+            sub_text = escape(label(sub_slug, sub_tr))
             lines.append(
-                f'      <li><a href="galeri.html#{sub_slug}">{escape(sub_label)}</a></li>')
+                f'      <li><a href="{gallery}#{sub_slug}">{sub_text}</a></li>')
         lines.append("    </ul>")
         lines.append("  </li>")
     lines.append("</ul>")
@@ -235,19 +266,22 @@ def submenu_markup(indent="            "):
 
 def write_category_cards():
     """Ana sayfadaki kategori kartları — parça sayıları sayımdan gelir."""
-    path = ROOT / "index.html"
+    path = LANG["dir"] / "index.html"
     html = path.read_text(encoding="utf-8")
     per = counts()
+    gallery = page("galeri.html")
     cards = []
-    for slug, label, _ in CATEGORIES:
+    for slug, tr_label, _ in CATEGORIES:
+        text = escape(label(slug, tr_label))
+        sayı = t("pieces").format(n=per.get(slug, 0))
         cards.append(
-            f'          <a class="category-card" href="galeri.html#{slug}">\n'
+            f'          <a class="category-card" href="{gallery}#{slug}">\n'
             f'            <span class="category-card-img">\n'
-            f'              <img src="assets/images/{CATEGORY_IMAGES[slug]}"'
-            f' alt="{escape(label)}" loading="lazy" />\n'
+            f'              <img src="{asset("assets/images/")}{CATEGORY_IMAGES[slug]}"'
+            f' alt="{text}" loading="lazy" />\n'
             f'            </span>\n'
-            f'            <span class="category-card-label">{escape(label)}'
-            f'<em>{per.get(slug, 0)} parça</em></span>\n'
+            f'            <span class="category-card-label">{text}'
+            f'<em>{sayı}</em></span>\n'
             f'          </a>')
     start, end = find_block(html, r'<div class="category-grid">')
     path.write_text(
@@ -257,32 +291,34 @@ def write_category_cards():
 
 
 def write_footer():
-    """Alt bilgi tüm sayfalarda aynı olsun; kategoriler sayımdan gelir."""
+    """Alt bilgi tüm sayfalarda aynı; kategoriler ve bağlantılar dile göre gelir."""
+    gallery = page("galeri.html")
     kategoriler = "\n".join(
-        f'            <li><a href="galeri.html#{slug}">{escape(label)}</a></li>'
-        for slug, label, _ in CATEGORIES)
+        f'            <li><a href="{gallery}#{slug}">{escape(label(slug, tr))}</a></li>'
+        for slug, tr, _ in CATEGORIES)
+    nav = LANG["ui"]["nav"]
     footer = f"""  <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-col">
-        <h3>Kurumsal</h3>
+        <h3>{t("footer_company")}</h3>
         <ul>
-          <li><a href="hakkimizda.html">Hakkımızda</a></li>
-          <li><a href="showroom.html">Vitrin</a></li>
-          <li><a href="sss.html">Sıkça Sorulan Sorular</a></li>
-          <li><a href="iletisim.html">İletişim</a></li>
+          <li><a href="{page("hakkimizda.html")}">{nav[page("hakkimizda.html")]}</a></li>
+          <li><a href="{page("showroom.html")}">{nav[page("showroom.html")]}</a></li>
+          <li><a href="{page("sss.html")}">{nav[page("sss.html")]}</a></li>
+          <li><a href="{page("iletisim.html")}">{nav[page("iletisim.html")]}</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h3>Koleksiyon</h3>
+        <h3>{t("footer_collection")}</h3>
         <ul>
-          <li><a href="galeri.html">Tüm Parçalar</a></li>
+          <li><a href="{gallery}">{t("footer_all")}</a></li>
 {kategoriler}
         </ul>
       </div>
 
       <div class="footer-col">
-        <h3>Bize Ulaşın</h3>
+        <h3>{t("footer_contact")}</h3>
         <p class="footer-contact">
           <span data-setting="address">Bağdat Caddesi, İstanbul</span><br />
           <a href="tel:+905557370933" data-setting="phone" data-setting-href="tel">0555 737 09 33</a><br />
@@ -296,68 +332,101 @@ def write_footer():
     </div>
 
     <div class="container footer-bottom">
-      <p>&copy; <span class="year"></span> Home Antique Home — Tüm hakları saklıdır.</p>
-      <a href="gizlilik.html">Gizlilik ve Kişisel Veriler</a>
+      <p>&copy; <span class="year"></span> Home Antique Home — {t("rights")}</p>
+      <a href="{page("gizlilik.html")}">{nav[page("gizlilik.html")]}</a>
     </div>
   </footer>"""
 
-    for path in sorted(ROOT.glob("*.html")):
+    for path in sorted(LANG["dir"].glob("*.html")):
         html = path.read_text(encoding="utf-8")
         start = html.index('  <footer class="site-footer">')
         end = html.index("</footer>") + len("</footer>")
         path.write_text(html[:start] + footer + html[end:], encoding="utf-8")
-    print("alt bilgi tüm sayfalara yazıldı")
+    print(f'[{LANG["code"]}] alt bilgi yazıldı')
+
+
+def nav_list(other_href):
+    """Menü öğeleri; Galeri açılır listeyi, son öğe dil değiştiriciyi taşır."""
+    nav = LANG["ui"]["nav"]
+    items = []
+    for tr_name, _, in_menu in i18n.PAGES:
+        if not in_menu:
+            continue
+        name = page(tr_name)
+        if tr_name == "galeri.html":
+            items.append(
+                '          <li class="has-submenu">\n'
+                f'            <a href="{name}">{nav[name]}</a>\n'
+                '            <button type="button" class="submenu-toggle"\n'
+                f'                    aria-label="{t("submenu_label")}"'
+                ' aria-expanded="false"></button>\n'
+                + submenu_markup() + '\n'
+                '          </li>')
+        else:
+            items.append(f'          <li><a href="{name}">{nav[name]}</a></li>')
+
+    items.append(
+        '          <li class="nav-social">\n'
+        '            <a href="https://www.instagram.com/homeantiquehome" target="_blank"\n'
+        '               rel="noopener" data-setting-href="instagram"\n'
+        f'               aria-label="{t("instagram_label")}"><span>Instagram</span></a>\n'
+        '          </li>')
+    items.append(
+        '          <li class="nav-lang">\n'
+        f'            <a href="{other_href}" aria-label="{t("lang_label")}">\n'
+        f'              <span class="lang-short">{t("other_lang_short")}</span>\n'
+        f'              <span class="lang-long">{t("other_lang")}</span>\n'
+        '            </a>\n'
+        '          </li>')
+    return "\n".join(items)
+
+
+def write_alternates():
+    """İki dilin aynı sayfası olduğunu arama motorlarına bildirir;
+    aksi hâlde birbirinin kopyası sayılabilirler."""
+    for tr_name, en_name, _ in i18n.PAGES:
+        path = LANG["dir"] / page(tr_name)
+        html = path.read_text(encoding="utf-8")
+        tr_href = tr_name if LANG["code"] == "tr" else f"../{tr_name}"
+        en_href = f"en/{en_name}" if LANG["code"] == "tr" else en_name
+        tags = (f'  <link rel="alternate" hreflang="tr" href="{tr_href}" />\n'
+                f'  <link rel="alternate" hreflang="en" href="{en_href}" />\n')
+        html = re.sub(r'  <link rel="alternate" hreflang="[a-z]{2}" href="[^"]*" />\n', "", html)
+        html = re.sub(r'(<meta name="description"[^>]*/>\n)', lambda m: m.group(1) + tags,
+                      html, count=1)
+        path.write_text(html, encoding="utf-8")
+    print(f'[{LANG["code"]}] dil eşleri bildirildi')
 
 
 def write_nav():
-    """Galeri bağlantısını, kategorileri taşıyan açılır menüye çevirir."""
-    plain = '<li><a href="galeri.html">Galeri</a></li>'
-    block = (
-        '<li class="has-submenu">\n'
-        '            <a href="galeri.html">Galeri</a>\n'
-        '            <button type="button" class="submenu-toggle"\n'
-        '                    aria-label="Galeri kategorileri" aria-expanded="false"></button>\n'
-        + submenu_markup() + "\n"
-        '          </li>'
-    )
+    """Menüyü, aramayı ve dil değiştiriciyi her sayfaya yazar."""
     search_form = (
-        '      <form class="header-search" action="galeri.html" role="search">\n'
-        '        <input type="search" name="q" placeholder="Ara&#8230;"\n'
-        '               aria-label="Koleksiyonda ara" />\n'
-        '        <button type="submit" aria-label="Ara"></button>\n'
-        '      </form>'
-    )
-    social = (
-        '<li class="nav-social">\n'
-        '            <a href="https://www.instagram.com/homeantiquehome" target="_blank"\n'
-        '               rel="noopener" data-setting-href="instagram"\n'
-        '               aria-label="Instagram sayfamız"><span>Instagram</span></a>\n'
-        '          </li>'
-    )
-    pattern = re.compile(
-        r'<li class="has-submenu">.*?</li>(?=\s*<li><a href="iletisim\.html")', re.DOTALL)
-    for path in sorted(ROOT.glob("*.html")):
+        f'      <form class="header-search" action="{page("galeri.html")}" role="search">\n'
+        f'        <input type="search" name="q" placeholder="{t("search_placeholder")}"\n'
+        f'               aria-label="{t("search_label")}" />\n'
+        f'        <button type="submit" aria-label="{t("search_button")}"></button>\n'
+        '      </form>')
+
+    for tr_name, en_name, _ in i18n.PAGES:
+        path = LANG["dir"] / page(tr_name)
         html = path.read_text(encoding="utf-8")
-        if plain in html:
-            html = html.replace(plain, block)
+
+        other = f"en/{en_name}" if LANG["code"] == "tr" else f"../{tr_name}"
+        start, end = find_block(html, r'<ul class="nav-list">', "ul")
+        html = (html[:start] + "\n" + nav_list(other) + "\n        " + html[end:])
+
+        # Varsa değiştir, yoksa ekle — böylece ingilizce sayfada türkçe
+        # yer tutucu metni kalmaz.
+        if 'class="header-search"' in html:
+            html = re.sub(r'      <form class="header-search".*?</form>',
+                          lambda m: search_form, html, count=1, flags=re.DOTALL)
         else:
-            html, n = pattern.subn(lambda m: block, html)
-            if not n:
-                print(f"!! {path.name}: Galeri menüsü bulunamadı")
-                continue
-        # Logo ile menü arasına arama kutusu
-        if 'class="header-search"' not in html:
             html = html.replace(
                 '      <button class="nav-toggle" id="navToggle"',
                 search_form + '\n\n      <button class="nav-toggle" id="navToggle"', 1)
 
-        # İletişim'in sağına Instagram bağlantısı
-        if 'class="nav-social"' not in html:
-            html = html.replace(
-                '<li><a href="iletisim.html">İletişim</a></li>',
-                '<li><a href="iletisim.html">İletişim</a></li>\n          ' + social, 1)
         path.write_text(html, encoding="utf-8")
-    print("başlık: arama kutusu, kategori listesi ve Instagram yazıldı")
+    print(f'[{LANG["code"]}] menü, arama ve dil değiştirici yazıldı')
 
 
 def featured_products():
@@ -379,17 +448,18 @@ def counts():
 def filter_markup(indent="          "):
     per = counts()
     lines = ['<ul class="filter-group">',
-             f'  <li><a href="#tumu" data-filter="all" class="is-active">Tümü'
+             f'  <li><a href="#tumu" data-filter="all" class="is-active">{t("all")}'
              f' <span>{per["all"]}</span></a></li>']
-    for slug, label, subs in CATEGORIES:
+    for slug, tr_label, subs in CATEGORIES:
         lines.append(f'  <li>')
-        lines.append(f'    <a href="#{slug}" data-filter="{slug}">{label}'
+        lines.append(f'    <a href="#{slug}" data-filter="{slug}">{label(slug, tr_label)}'
                      f' <span>{per.get(slug, 0)}</span></a>')
         if subs:
             lines.append('    <ul>')
-            for sub_slug, sub_label in subs:
+            for sub_slug, sub_tr in subs:
                 lines.append(f'      <li><a href="#{sub_slug}" data-filter="{sub_slug}">'
-                             f'{sub_label} <span>{per.get(sub_slug, 0)}</span></a></li>')
+                             f'{label(sub_slug, sub_tr)} <span>{per.get(sub_slug, 0)}</span>'
+                             f'</a></li>')
             lines.append('    </ul>')
         lines.append('  </li>')
     lines.append('</ul>')
@@ -406,12 +476,12 @@ def replace_block(path, start_marker, end_pattern, content):
     path.write_text(new_html, encoding="utf-8")
 
 
-def find_block(html, open_pattern):
-    """Açılış etiketini bulur ve iç içe <div>'leri sayarak kapanışını döndürür."""
+def find_block(html, open_pattern, tag_name="div"):
+    """Açılış etiketini bulur ve iç içe etiketleri sayarak kapanışını döndürür."""
     match = re.search(open_pattern, html)
     assert match, f"açılış etiketi bulunamadı: {open_pattern}"
     depth, i = 1, match.end()
-    for tag in re.finditer(r"<(/?)div\b", html[match.end():]):
+    for tag in re.finditer(rf"<(/?){tag_name}\b", html[match.end():]):
         depth += -1 if tag.group(1) else 1
         if depth == 0:
             i = match.end() + tag.start()
@@ -447,10 +517,11 @@ def write_categories_module():
 
 
 def update_settings_html():
-    for path in ROOT.glob("*.html"):
+    texts = SETTINGS if LANG["code"] == "tr" else i18n.SETTINGS_EN
+    for path in LANG["dir"].glob("*.html"):
         html = path.read_text(encoding="utf-8")
         changed = False
-        for key, value in SETTINGS.items():
+        for key, value in texts.items():
             pattern = re.compile(rf'(<p data-setting="{key}"[^>]*>)(.*?)(</p>)', re.DOTALL)
             html, count = pattern.subn(
                 lambda m: f"{m.group(1)}\n            {value}\n          {m.group(3)}", html)
@@ -472,18 +543,20 @@ def write_seed():
         sql, count = pattern.subn(lambda m: m.group(1) + sql_value(value) + m.group(2), sql)
         assert count == 1, f"schema.sql: {key} için {count} eşleşme"
 
-    rows = [
-        f"  ({sql_value(title)}, {sql_value(description)}, {price if price else 'null'}, "
-        f"{sql_value('assets/images/' + image)}, {'true' if sold else 'false'}, "
-        f"{sql_value(cat)}, {sql_value(sub) if sub else 'null'}, {order}, "
-        f"{'true' if title in FEATURED else 'false'})"
-        for order, (image, title, description, price, sold, cat, sub)
-        in enumerate(PRODUCTS, start=1)
-    ]
+    rows = []
+    for order, (image, title, description, price, sold, cat, sub) in enumerate(
+            PRODUCTS, start=1):
+        title_en, description_en = i18n.PRODUCTS_EN[title]
+        rows.append(
+            f"  ({sql_value(title)}, {sql_value(description)}, {price if price else 'null'}, "
+            f"{sql_value('assets/images/' + image)}, {'true' if sold else 'false'}, "
+            f"{sql_value(cat)}, {sql_value(sub) if sub else 'null'}, {order}, "
+            f"{'true' if title in FEATURED else 'false'}, "
+            f"{sql_value(title_en)}, {sql_value(description_en)})")
     block = (
         "insert into public.products "
         "(title, description, price, image_url, is_sold, category, subcategory, sort_order, "
-        "is_featured) values\n"
+        "is_featured, title_en, description_en) values\n"
         + ",\n".join(rows) + "\non conflict do nothing;\n"
     )
     pattern = re.compile(
@@ -496,23 +569,83 @@ def write_seed():
     print(f"schema.sql: {len(PRODUCTS)} ürün")
 
 
-replace_grid(ROOT / "galeri.html", PRODUCTS)
-replace_grid(ROOT / "showroom.html", featured_products(), indent="          ")
-replace_grid(ROOT / "index.html", PRODUCTS, limit=6, indent="          ")
-update_settings_html()
-write_nav()
-write_footer()
-write_category_cards()
+def sync_en_skeletons():
+    """İngilizce sayfaları her derlemede türkçelerinden yeniden üretir.
+    Böylece türkçe bir sayfa değişince ingilizcesi geride kalmaz."""
+    out = ROOT / "en"
+    out.mkdir(exist_ok=True)
+    used = set()
+
+    for tr_name, en_name, _ in i18n.PAGES:
+        html = (ROOT / tr_name).read_text(encoding="utf-8")
+        html = html.replace('<html lang="tr"', '<html lang="en"', 1)
+
+        title, desc = i18n.HEAD_EN[tr_name]
+        html = re.sub(r"<title>.*?</title>", f"<title>{title}</title>", html, count=1)
+        html = re.sub(r'<meta name="description" content="[^"]*" />',
+                      f'<meta name="description" content="{desc}" />', html, count=1)
+
+        # Sayfa bağlantıları ingilizce dosya adlarına
+        for other_tr, other_en, _ in i18n.PAGES:
+            if other_tr != other_en:
+                html = html.replace(f'href="{other_tr}', f'href="{other_en}')
+
+        # en/ bir alt dizin olduğu için varlık yolları bir üste çıkar
+        html = re.sub(r'(href|src)="(css/|js/|assets/)', r'\1="../\2', html)
+        html = html.replace("url('assets/", "url('../assets/")
+
+        if tr_name in i18n.MAIN_EN:
+            start = html.index("  <main>")
+            end = html.index("  </main>") + len("  </main>")
+            html = html[:start] + i18n.MAIN_EN[tr_name] + html[end:]
+
+        for tr_text, en_text in i18n.STATIC_EN.items():
+            if tr_text in html:
+                html = html.replace(tr_text, en_text)
+                used.add(tr_text)
+
+        (out / en_name).write_text(html, encoding="utf-8")
+
+    unused = set(i18n.STATIC_EN) - used
+    assert not unused, f"türkçe sayfalarda bulunamayan çeviri: {sorted(unused)[:3]}"
+    print(f"en/: {len(i18n.PAGES)} sayfa türkçeden üretildi")
+
+
+LANGS = {
+    "tr": {"code": "tr", "dir": ROOT, "prefix": "",
+           "pages": {tr: tr for tr, _, _ in i18n.PAGES}, "ui": i18n.UI["tr"]},
+    "en": {"code": "en", "dir": ROOT / "en", "prefix": "../",
+           "pages": {tr: en for tr, en, _ in i18n.PAGES}, "ui": i18n.UI["en"]},
+}
+
+sync_en_skeletons()
+
+for _code in ("tr", "en"):
+    LANG = LANGS[_code]
+    LANG["dir"].mkdir(exist_ok=True)
+
+    replace_grid(LANG["dir"] / page("galeri.html"), PRODUCTS)
+    replace_grid(LANG["dir"] / page("showroom.html"), featured_products(),
+                 indent="          ")
+    replace_grid(LANG["dir"] / page("index.html"), PRODUCTS, limit=6, indent="          ")
+    update_settings_html()
+    write_nav()
+    write_alternates()
+    write_footer()
+    write_category_cards()
+
+    # Filtre listesi galeri sayfasına
+    _gal = LANG["dir"] / page("galeri.html")
+    _html = _gal.read_text(encoding="utf-8")
+    _pattern = re.compile(
+        r'(<nav class="filters-list" id="filtersList">).*?(</nav>)', re.DOTALL)
+    _html, _n = _pattern.subn(
+        lambda m: m.group(1) + "\n" + filter_markup() + "\n          " + m.group(2), _html)
+    assert _n == 1, f"{_gal.name}: filtre listesi için {_n} eşleşme"
+    _gal.write_text(_html, encoding="utf-8")
+    print(f'[{_code}] filtre listesi yazıldı')
+
+# Yönetim paneli yalnızca Türkçe
+LANG = LANGS["tr"]
 write_categories_module()
 write_seed()
-
-# Filtre listesi galeri.html içine
-galeri = ROOT / "galeri.html"
-html = galeri.read_text(encoding="utf-8")
-pattern = re.compile(
-    r'(<nav class="filters-list" id="filtersList">).*?(</nav>)', re.DOTALL)
-new_html, n = pattern.subn(
-    lambda m: m.group(1) + "\n" + filter_markup() + "\n          " + m.group(2), html)
-assert n == 1, f"galeri.html: filtre listesi için {n} eşleşme"
-galeri.write_text(new_html, encoding="utf-8")
-print("galeri.html: filtre listesi yazıldı")

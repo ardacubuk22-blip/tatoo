@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Home Antique Home</title>
+  <meta name="description" content="The full Home Antique Home collection of antique silver, porcelain and glass" />
+  <link rel="alternate" hreflang="tr" href="../galeri.html" />
+  <link rel="alternate" hreflang="en" href="gallery.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-name">Home Antique Home</span>
+        <span class="logo-tagline">İSTANBUL</span>
+      </a>
+
+      <form class="header-search" action="gallery.html" role="search">
+        <input type="search" name="q" placeholder="Search&#8230;"
+               aria-label="Search the collection" />
+        <button type="submit" aria-label="Search"></button>
+      </form>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Menüyü aç" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="showroom.html">Showcase</a></li>
+          <li class="has-submenu">
+            <a href="gallery.html">Gallery</a>
+            <button type="button" class="submenu-toggle"
+                    aria-label="Gallery categories" aria-expanded="false"></button>
+            <ul class="submenu">
+              <li>
+                <a href="gallery.html#gumus">Silver &amp; Silver Plate</a>
+                <ul class="submenu-sub">
+                  <li><a href="gallery.html#tepsiler">Trays</a></li>
+                  <li><a href="gallery.html#catal-bicak">Cutlery &amp; Spoons</a></li>
+                  <li><a href="gallery.html#gumus-diger">Other Silver Pieces</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="gallery.html#aydinlatma">Candlesticks &amp; Candle Holders</a>
+                <ul class="submenu-sub">
+                  <li><a href="gallery.html#samdanlar">Candlesticks</a></li>
+                  <li><a href="gallery.html#mumluklar">Candle Holders</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="gallery.html#porselen">Porcelain &amp; Ceramics</a>
+                <ul class="submenu-sub">
+                  <li><a href="gallery.html#servis-takimlari">Service Sets</a></li>
+                  <li><a href="gallery.html#tabaklar">Plates</a></li>
+                  <li><a href="gallery.html#porselen-diger">Other Porcelain</a></li>
+                </ul>
+              </li>
+              <li><a href="gallery.html#cam">Glass &amp; Crystal</a></li>
+              <li><a href="gallery.html#dekoratif">Decorative Objects</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="nav-social">
+            <a href="https://www.instagram.com/homeantiquehome" target="_blank"
+               rel="noopener" data-setting-href="instagram"
+               aria-label="Our Instagram page"><span>Instagram</span></a>
+          </li>
+          <li class="nav-lang">
+            <a href="../galeri.html" aria-label="Türkçe'ye geç">
+              <span class="lang-short">TR</span>
+              <span class="lang-long">Türkçe</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-header">
+      <h1>Gallery</h1>
+    </div>
+
+    <section class="gallery">
+      <div class="container gallery-layout">
+        <aside class="filters">
+          <form class="gallery-search" role="search">
+            <input type="search" id="gallerySearch" name="q"
+                   placeholder="Search the collection&#8230;" aria-label="Search the collection" />
+          </form>
+
+          <button type="button" class="filters-toggle" id="filtersToggle" aria-expanded="false" aria-controls="filtersList">
+            Filters
+          </button>
+          <nav class="filters-list" id="filtersList">
+          <ul class="filter-group">
+            <li><a href="#tumu" data-filter="all" class="is-active">All <span>26</span></a></li>
+            <li>
+              <a href="#gumus" data-filter="gumus">Silver & Silver Plate <span>10</span></a>
+              <ul>
+                <li><a href="#tepsiler" data-filter="tepsiler">Trays <span>4</span></a></li>
+                <li><a href="#catal-bicak" data-filter="catal-bicak">Cutlery & Spoons <span>2</span></a></li>
+                <li><a href="#gumus-diger" data-filter="gumus-diger">Other Silver Pieces <span>4</span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#aydinlatma" data-filter="aydinlatma">Candlesticks & Candle Holders <span>5</span></a>
+              <ul>
+                <li><a href="#samdanlar" data-filter="samdanlar">Candlesticks <span>2</span></a></li>
+                <li><a href="#mumluklar" data-filter="mumluklar">Candle Holders <span>3</span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#porselen" data-filter="porselen">Porcelain & Ceramics <span>7</span></a>
+              <ul>
+                <li><a href="#servis-takimlari" data-filter="servis-takimlari">Service Sets <span>2</span></a></li>
+                <li><a href="#tabaklar" data-filter="tabaklar">Plates <span>3</span></a></li>
+                <li><a href="#porselen-diger" data-filter="porselen-diger">Other Porcelain <span>2</span></a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#cam" data-filter="cam">Glass & Crystal <span>3</span></a>
+            </li>
+            <li>
+              <a href="#dekoratif" data-filter="dekoratif">Decorative Objects <span>1</span></a>
+            </li>
+          </ul>
+          </nav>
+        </aside>
+
+        <div class="gallery-main">
+          <p class="result-count" id="resultCount"></p>
+          <div class="collection-grid" data-products>
+            <article class="item" data-category="cam">
+              <div class="item-img">
+                <img src="../assets/images/hero-mary-gregory.jpg" alt="Mary Gregory Pitcher and Tumbler Set" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Mary Gregory Pitcher and Tumbler Set</h3>
+                <p>An original Mary Gregory set: white enamel figures hand painted on blue glass, with gilding along the rim and foot. One of the most loved glass crafts of its day.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Mary%20Gregory%20Pitcher%20and%20Tumbler%20Set%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Mary Gregory Pitcher and Tumbler Set on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="cam">
+              <div class="item-img">
+                <img src="../assets/images/gallery-mary-gregory-clear.jpg" alt="Mary Gregory Bedside Carafe" loading="lazy" />
+                <span class="badge-sold">Sold</span>
+              </div>
+              <div class="item-body">
+                <h3>Mary Gregory Bedside Carafe</h3>
+                <p>Clear glass carrying hand painted white enamel figures. An original bedside carafe, complete with its matching tumbler.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20The%20Mary%20Gregory%20Bedside%20Carafe%20on%20your%20website%20appears%20to%20be%20sold%20%E2%80%94%20do%20you%20have%20anything%20similar%3F" target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! The Mary Gregory Bedside Carafe on your website appears to be sold — do you have anything similar?">Ask for Similar</a>
+              </div>
+            </article>
+            <article class="item" data-category="porselen" data-subcategory="servis-takimlari">
+              <div class="item-img">
+                <img src="../assets/images/porselen-cay-servisi.jpg" alt="Porcelain Tea Service" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Porcelain Tea Service</h3>
+                <p>A European white porcelain tea and coffee service with a relief pattern. Complete with teapot, sugar bowl, creamer and cups.</p>
+                <p class="item-price">11.500 ₺</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Porcelain%20Tea%20Service%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Porcelain Tea Service on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="gumus" data-subcategory="gumus-diger">
+              <div class="item-img">
+                <img src="../assets/images/wmf-gumus-kutu.jpg" alt="WMF Lidded Box" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>WMF Lidded Box</h3>
+                <p>A footed lidded box marked by the German house WMF, with an embossed border. An original piece, distinguished by the cast handle on its lid.</p>
+                <p class="item-price">10.000 ₺</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20WMF%20Lidded%20Box%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the WMF Lidded Box on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="porselen" data-subcategory="tabaklar">
+              <div class="item-img">
+                <img src="../assets/images/manzara-tabak-seti.jpg" alt="Scenic Plate Set" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Scenic Plate Set</h3>
+                <p>A four piece plate set in the English blue and white tradition, engraved with castles and fortresses. Made with the classic transfer printing technique.</p>
+                <p class="item-price">6.500 ₺</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Scenic%20Plate%20Set%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Scenic Plate Set on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="porselen" data-subcategory="servis-takimlari">
+              <div class="item-img">
+                <img src="../assets/images/porselen-fincan-takimi.jpg" alt="Porcelain Cup Set" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Porcelain Cup Set</h3>
+                <p>European porcelain with an angel relief body and a gilded border. A three piece set: cup, saucer and cake plate.</p>
+                <p class="item-price">5.500 ₺</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Porcelain%20Cup%20Set%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Porcelain Cup Set on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="dekoratif">
+              <div class="item-img">
+                <img src="../assets/images/pirinc-zincirli-canta.jpg" alt="Vintage Bag with Chain Strap" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Vintage Bag with Chain Strap</h3>
+                <p>A decorative vintage bag with a chain strap, a bird figure on the clasp and a fluted brass body.</p>
+                <p class="item-price">5.500 ₺</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Vintage%20Bag%20with%20Chain%20Strap%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Vintage Bag with Chain Strap on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="cam">
+              <div class="item-img">
+                <img src="../assets/images/amber-kadeh.jpg" alt="Amber Glass Goblets (Set of 6)" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Amber Glass Goblets (Set of 6)</h3>
+                <p>Footed goblets in amber glass with a fluted body. A set of six that brings the warm tones of European glasswork to the table.</p>
+                <p class="item-price">4.750 ₺</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Amber%20Glass%20Goblets%20%28Set%20of%206%29%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Amber Glass Goblets (Set of 6) on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="gumus" data-subcategory="gumus-diger">
+              <div class="item-img">
+                <img src="../assets/images/gumus-cikolata-potu.jpg" alt="Silver Chocolate Pot" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Silver Chocolate Pot</h3>
+                <p>An 800 silver chocolate pot made in Paris between 1868 and 1888, marked Paillard Frères. A collector's piece, with embossed floral decoration and a wooden handle.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Silver%20Chocolate%20Pot%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Silver Chocolate Pot on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="gumus" data-subcategory="tepsiler">
+              <div class="item-img">
+                <img src="../assets/images/gumus-servis-tepsisi.jpg" alt="Christofle Malmaison Tray" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Christofle Malmaison Tray</h3>
+                <p>A serving tray with a pearl border from Christofle's iconic Malmaison collection. One of the French house's most sought after forms.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Christofle%20Malmaison%20Tray%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Christofle Malmaison Tray on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="gumus" data-subcategory="catal-bicak">
+              <div class="item-img">
+                <img src="../assets/images/christofle-catal-bicak-takimi.jpg" alt="Christofle Cutlery Set" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Christofle Cutlery Set</h3>
+                <p>A silver plated cutlery set signed Christofle, together with serving pieces such as a ladle, a serving fork and a cake slice.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Christofle%20Cutlery%20Set%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Christofle Cutlery Set on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="aydinlatma" data-subcategory="samdanlar">
+              <div class="item-img">
+                <img src="../assets/images/gumus-samdan-cift.jpg" alt="Silver Plated Candlesticks (Pair)" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Silver Plated Candlesticks (Pair)</h3>
+                <p>A pair of tall, slender candlesticks with a pearl border. A classic of European table culture.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Silver%20Plated%20Candlesticks%20%28Pair%29%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Silver Plated Candlesticks (Pair) on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="aydinlatma" data-subcategory="mumluklar">
+              <div class="item-img">
+                <img src="../assets/images/mumluk-koleksiyonu.jpg" alt="Silver Plated Candle Holder Collection" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Silver Plated Candle Holder Collection</h3>
+                <p>Silver plated candle holders in various sizes and forms, brought from Europe both as pairs and as single pieces.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Silver%20Plated%20Candle%20Holder%20Collection%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Silver Plated Candle Holder Collection on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="aydinlatma" data-subcategory="mumluklar">
+              <div class="item-img">
+                <img src="../assets/images/mumluk-grubu.jpg" alt="Candlestick and Candle Holder Group" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Candlestick and Candle Holder Group</h3>
+                <p>A silver plated group reaching from tall candlesticks to chamber sticks, gathered from different periods and forms.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Candlestick%20and%20Candle%20Holder%20Group%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Candlestick and Candle Holder Group on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="aydinlatma" data-subcategory="mumluklar">
+              <div class="item-img">
+                <img src="../assets/images/pirinc-gumus-mumluklar.jpg" alt="Brass and Silver Candle Holders" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Brass and Silver Candle Holders</h3>
+                <p>A mixed group of brass and silver plated candle holders, some in pairs and some as single pieces.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Brass%20and%20Silver%20Candle%20Holders%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Brass and Silver Candle Holders on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="aydinlatma" data-subcategory="samdanlar">
+              <div class="item-img">
+                <img src="../assets/images/pirinc-samdan.jpg" alt="Brass Candlesticks (Pair)" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Brass Candlesticks (Pair)</h3>
+                <p>A pair of brass candlesticks with engraved leaf decoration and a wide base. The aged patina keeps the original form intact.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Brass%20Candlesticks%20%28Pair%29%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Brass Candlesticks (Pair) on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="gumus" data-subcategory="tepsiler">
+              <div class="item-img">
+                <img src="../assets/images/oval-gumus-tepsi.jpg" alt="Oval Silver Plated Tray" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Oval Silver Plated Tray</h3>
+                <p>An oval serving tray with a pearl border and an embossed medallion at its centre.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Oval%20Silver%20Plated%20Tray%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Oval Silver Plated Tray on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="gumus" data-subcategory="tepsiler">
+              <div class="item-img">
+                <img src="../assets/images/kulplu-gumus-tepsi.jpg" alt="Silver Plated Tray with Handles" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Silver Plated Tray with Handles</h3>
+                <p>A serving tray with handles and embossed leaf work along the rim. Marked and original.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Silver%20Plated%20Tray%20with%20Handles%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Silver Plated Tray with Handles on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="gumus" data-subcategory="tepsiler">
+              <div class="item-img">
+                <img src="../assets/images/tepsi-ve-cevizlik.jpg" alt="Tray, Bowl and Nutcracker" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Tray, Bowl and Nutcracker</h3>
+                <p>A serving group of a handled silver plated tray, a small bowl with an embossed rim and a nutcracker.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Tray%2C%20Bowl%20and%20Nutcracker%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Tray, Bowl and Nutcracker on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="porselen" data-subcategory="tabaklar">
+              <div class="item-img">
+                <img src="../assets/images/cicek-desenli-tabaklar.jpg" alt="Floral Serving Plates" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Floral Serving Plates</h3>
+                <p>European porcelain serving plates with a rose pattern, together with openwork spice spoons. For coffee and refreshments.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Floral%20Serving%20Plates%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Floral Serving Plates on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="porselen" data-subcategory="tabaklar">
+              <div class="item-img">
+                <img src="../assets/images/mavi-beyaz-servis-tabaklari.jpg" alt="Blue and White Serving Dishes" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Blue and White Serving Dishes</h3>
+                <p>Rectangular handled porcelain serving dishes with a printed scene. One of the best known forms of the classic blue and white pattern.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Blue%20and%20White%20Serving%20Dishes%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Blue and White Serving Dishes on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="gumus" data-subcategory="catal-bicak">
+              <div class="item-img">
+                <img src="../assets/images/gumus-cay-kasiklari.jpg" alt="Teaspoon Set" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Teaspoon Set</h3>
+                <p>A silver plated teaspoon set with a classic border pattern. An elegant European piece, suited to everyday use as well.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Teaspoon%20Set%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Teaspoon Set on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="gumus" data-subcategory="gumus-diger">
+              <div class="item-img">
+                <img src="../assets/images/gumus-cay-suzgeci.jpg" alt="Tea Strainer" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Tea Strainer</h3>
+                <p>An over the cup tea strainer with a gilded bowl and an embossed handle.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Tea%20Strainer%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Tea Strainer on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="porselen" data-subcategory="porselen-diger">
+              <div class="item-img">
+                <img src="../assets/images/melek-figurlu-surahi.jpg" alt="Milk Jug with Angel Figures" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Milk Jug with Angel Figures</h3>
+                <p>A jasperware style porcelain milk jug, with white angel reliefs on a matte body.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Milk%20Jug%20with%20Angel%20Figures%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Milk Jug with Angel Figures on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="porselen" data-subcategory="porselen-diger">
+              <div class="item-img">
+                <img src="../assets/images/bira-masrapasi.jpg" alt="Lidded Beer Stein" loading="lazy" />
+              </div>
+              <div class="item-body">
+                <h3>Lidded Beer Stein</h3>
+                <p>A German ceramic stein with relief figures on a cobalt blue ground. Original, with its hinged pewter lid.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20I%20am%20interested%20in%20the%20Lidded%20Beer%20Stein%20on%20your%20website." target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! I am interested in the Lidded Beer Stein on your website.">Ask on WhatsApp</a>
+              </div>
+            </article>
+            <article class="item" data-category="gumus" data-subcategory="gumus-diger">
+              <div class="item-img">
+                <img src="../assets/images/gumus-pecetelik.jpg" alt="Floral Napkin Holder" loading="lazy" />
+                <span class="badge-sold">Sold</span>
+              </div>
+              <div class="item-body">
+                <h3>Floral Napkin Holder</h3>
+                <p>A silver plated napkin holder with openwork floral decoration.</p>
+                <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Hello%21%20The%20Floral%20Napkin%20Holder%20on%20your%20website%20appears%20to%20be%20sold%20%E2%80%94%20do%20you%20have%20anything%20similar%3F" target="_blank" rel="noopener"
+                   data-wa-product data-wa-text="Hello! The Floral Napkin Holder on your website appears to be sold — do you have anything similar?">Ask for Similar</a>
+              </div>
+            </article>
+          </div>
+
+        <p class="no-results" id="noResults" hidden>No pieces match your search.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="showroom.html">Showcase</a></li>
+          <li><a href="faq.html">Frequently Asked Questions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Collection</h3>
+        <ul>
+          <li><a href="gallery.html">All Pieces</a></li>
+            <li><a href="gallery.html#gumus">Silver &amp; Silver Plate</a></li>
+            <li><a href="gallery.html#aydinlatma">Candlesticks &amp; Candle Holders</a></li>
+            <li><a href="gallery.html#porselen">Porcelain &amp; Ceramics</a></li>
+            <li><a href="gallery.html#cam">Glass &amp; Crystal</a></li>
+            <li><a href="gallery.html#dekoratif">Decorative Objects</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Contact Us</h3>
+        <p class="footer-contact">
+          <span data-setting="address">Bağdat Caddesi, İstanbul</span><br />
+          <a href="tel:+905557370933" data-setting="phone" data-setting-href="tel">0555 737 09 33</a><br />
+          <a href="mailto:homeantiquehome@gmail.com" data-setting="email" data-setting-href="email">homeantiquehome@gmail.com</a>
+        </p>
+        <div class="footer-links">
+          <a href="https://wa.me/905557370933" target="_blank" rel="noopener" class="footer-social" data-setting-href="whatsapp">WhatsApp</a>
+          <a href="https://www.instagram.com/homeantiquehome" target="_blank" rel="noopener" class="footer-social" data-setting-href="instagram">Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>&copy; <span class="year"></span> Home Antique Home — All rights reserved.</p>
+      <a href="privacy.html">Privacy & Personal Data</a>
+    </div>
+  </footer>
+
+  <script src="../js/script.js"></script>
+  <script type="module" src="../js/public-site.js"></script>
+</body>
+</html>

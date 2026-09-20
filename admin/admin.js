@@ -194,6 +194,8 @@ function fillProductForm(product) {
   productForm.title.value = product.title ?? "";
   productForm.description.value = product.description ?? "";
   productForm.price.value = product.price ?? "";
+  productForm.title_en.value = product.title_en ?? "";
+  productForm.description_en.value = product.description_en ?? "";
   productForm.sort_order.value = product.sort_order ?? 0;
   productForm.is_sold.checked = Boolean(product.is_sold);
   productForm.is_featured.checked = Boolean(product.is_featured);
@@ -241,6 +243,8 @@ async function handleProductSubmit(event) {
   const product = {
     title: form.title.value.trim(),
     description: form.description.value.trim() || null,
+    title_en: form.title_en.value.trim() || null,
+    description_en: form.description_en.value.trim() || null,
     price: form.price.value === "" ? null : Number(form.price.value),
     sort_order: Number(form.sort_order.value) || 0,
     is_sold: form.is_sold.checked,

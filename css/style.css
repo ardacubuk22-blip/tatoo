@@ -264,6 +264,28 @@ h1, h2, h3 {
   color: var(--color-text-muted);
 }
 
+/* Dil değiştirici — masaüstünde kısa kod, telefonda dilin adı */
+.nav-lang a {
+  border-bottom: none;
+  color: var(--color-accent-dark);
+}
+
+.nav-lang a:hover {
+  color: #fff;
+  border-color: transparent;
+}
+
+.lang-short {
+  padding: 3px 8px;
+  border: 1px solid var(--color-accent);
+  border-radius: 2px;
+  font-size: 0.72rem;
+}
+
+.lang-long {
+  display: none;
+}
+
 /* Menüdeki Instagram bağlantısı — simge maske olarak gelir */
 .nav-social a {
   display: flex;
@@ -1332,7 +1354,7 @@ section {
 }
 
 /* Üç öğe tek satıra sığmıyor: arama kendi satırına geçer */
-@media (max-width: 1240px) {
+@media (max-width: 1330px) {
   .header-inner {
     display: flex;
     flex-wrap: wrap;
@@ -1376,6 +1398,14 @@ section {
   .nav-list li {
     padding: 10px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .lang-short {
+    display: none;
+  }
+
+  .lang-long {
+    display: inline;
   }
 
   /* Logo telefonda ikiye bölünmesin */

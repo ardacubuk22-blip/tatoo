@@ -8,7 +8,63 @@ import {
 } from "./store.js";
 
 const safeImageUrl = (url) =>
-  /^(https?:\/\/|assets\/)/.test(url || "") ? url : "";
+  /^(https?:\/\/|\.\.\/assets\/|assets\/)/.test(url || "") ? url : "";
+
+// İngilizce sayfalar en/ altında; görsel yolları bir üst dizine bakar.
+const LANG = document.documentElement.lang === "en" ? "en" : "tr";
+const IMAGE_PREFIX = LANG === "en" ? "../" : "";
+
+const T = {
+  tr: {
+    sold: "Satıldı",
+    ask: "WhatsApp ile Sor",
+    askSimilar: "Benzerini Sor",
+    orderForm: "Sipariş / Bilgi Formu",
+    waInterested: (t) => `Merhaba! Sitenizdeki ${t} ile ilgileniyorum.`,
+    waSimilar: (t) =>
+      `Merhaba! Sitenizdeki ${t} satılmış görünüyor, benzer bir parçanız var mı?`,
+    showing: (n) => `${n} ürün gösteriliyor`,
+    filtered: (parts, n) => `${parts} — ${n} ürün`,
+    modalTitle: "Sipariş / Bilgi Talebi",
+    close: "Kapat",
+    name: "Ad Soyad",
+    phone: "Telefon",
+    email: "E-posta",
+    note: "Notunuz",
+    send: "Gönder",
+    sending: "Gönderiliyor…",
+    sent: "Talebiniz alındı, en kısa sürede size dönüş yapacağız.",
+    failed: "Gönderilemedi. Lütfen WhatsApp veya telefon ile iletişime geçin.",
+    loadError: "İçerik yüklenemedi:",
+  },
+  en: {
+    sold: "Sold",
+    ask: "Ask on WhatsApp",
+    askSimilar: "Ask for Similar",
+    orderForm: "Order / Enquiry Form",
+    waInterested: (t) => `Hello! I am interested in the ${t} on your website.`,
+    waSimilar: (t) =>
+      `Hello! The ${t} on your website appears to be sold — do you have anything similar?`,
+    showing: (n) => `${n} pieces shown`,
+    filtered: (parts, n) => `${parts} — ${n} pieces`,
+    modalTitle: "Order / Enquiry",
+    close: "Close",
+    name: "Full Name",
+    phone: "Phone",
+    email: "Email",
+    note: "Your note",
+    send: "Send",
+    sending: "Sending…",
+    sent: "We have your request and will come back to you shortly.",
+    failed: "Could not send. Please reach us on WhatsApp or by phone.",
+    loadError: "Could not load content:",
+  },
+}[LANG];
+
+// Veritabanındaki ingilizce alan doluysa onu, değilse türkçesini kullanır.
+const productTitle = (p) => (LANG === "en" && p.title_en) || p.title;
+const productDescription = (p) =>
+  (LANG === "en" && p.description_en) || p.description;
 
 function buildProductCard(product) {
   const article = document.createElement("article");
@@ -21,15 +77,15 @@ function buildProductCard(product) {
   const src = safeImageUrl(product.image_url);
   if (src) {
     const img = document.createElement("img");
-    img.src = src;
-    img.alt = product.title;
+    img.src = src.startsWith("assets/") ? IMAGE_PREFIX + src : src;
+    img.alt = productTitle(product);
     img.loading = "lazy";
     imgWrap.append(img);
   }
   if (product.is_sold) {
     const badge = document.createElement("span");
     badge.className = "badge-sold";
-    badge.textContent = "Satıldı";
+    badge.textContent = T.sold;
     imgWrap.append(badge);
   }
 
@@ -37,12 +93,13 @@ function buildProductCard(product) {
   body.className = "item-body";
 
   const title = document.createElement("h3");
-  title.textContent = product.title;
+  title.textContent = productTitle(product);
   body.append(title);
 
-  if (product.description) {
+  const description = productDescription(product);
+  if (description) {
     const desc = document.createElement("p");
-    desc.textContent = product.description;
+    desc.textContent = description;
     body.append(desc);
   }
 
@@ -50,7 +107,7 @@ function buildProductCard(product) {
   if (price) {
     const priceEl = document.createElement("p");
     priceEl.className = "item-price";
-    priceEl.textContent = product.is_sold ? `${price} — Satıldı` : price;
+    priceEl.textContent = product.is_sold ? `${price} — ${T.sold}` : price;
     body.append(priceEl);
   }
 
@@ -60,9 +117,9 @@ function buildProductCard(product) {
   wa.rel = "noopener";
   wa.dataset.waProduct = "";
   wa.dataset.waText = product.is_sold
-    ? `Merhaba! Sitenizdeki ${product.title} satılmış görünüyor, benzer bir parçanız var mı?`
-    : `Merhaba! Sitenizdeki ${product.title} ile ilgileniyorum.`;
-  wa.textContent = product.is_sold ? "Benzerini Sor" : "WhatsApp ile Sor";
+    ? T.waSimilar(productTitle(product))
+    : T.waInterested(productTitle(product));
+  wa.textContent = product.is_sold ? T.askSimilar : T.ask;
   wa.href = productWhatsAppHref(wa.dataset.waText);
   body.append(wa);
 
@@ -70,7 +127,7 @@ function buildProductCard(product) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "btn-link";
-    button.textContent = "Sipariş / Bilgi Formu";
+    button.textContent = T.orderForm;
     button.addEventListener("click", () => openOrderModal(product));
     body.append(button);
   }
@@ -134,8 +191,8 @@ function applyFilter(slug) {
 
   const count = document.getElementById("resultCount");
   count.textContent = parts.length
-    ? `${parts.join(" · ")} — ${shown} ürün`
-    : `${shown} ürün gösteriliyor`;
+    ? T.filtered(parts.join(" · "), shown)
+    : T.showing(shown);
 
   const empty = document.getElementById("noResults");
   if (empty) empty.hidden = shown > 0;
@@ -247,15 +304,15 @@ function buildModal() {
   backdrop.hidden = true;
   backdrop.innerHTML = `
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="orderModalTitle">
-      <button type="button" class="modal-close" aria-label="Kapat">&times;</button>
-      <h3 id="orderModalTitle">Sipariş / Bilgi Talebi</h3>
+      <button type="button" class="modal-close" aria-label="${T.close}">&times;</button>
+      <h3 id="orderModalTitle">${T.modalTitle}</h3>
       <p class="modal-product"></p>
       <form>
-        <label>Ad Soyad *<input type="text" name="customer_name" required /></label>
-        <label>Telefon *<input type="tel" name="customer_phone" required /></label>
-        <label>E-posta<input type="email" name="customer_email" /></label>
-        <label>Notunuz<textarea name="note" rows="3"></textarea></label>
-        <button type="submit" class="btn">Gönder</button>
+        <label>${T.name} *<input type="text" name="customer_name" required /></label>
+        <label>${T.phone} *<input type="tel" name="customer_phone" required /></label>
+        <label>${T.email}<input type="email" name="customer_email" /></label>
+        <label>${T.note}<textarea name="note" rows="3"></textarea></label>
+        <button type="submit" class="btn">${T.send}</button>
         <p class="form-status" role="status"></p>
       </form>
     </div>`;
@@ -273,7 +330,7 @@ function buildModal() {
 function openOrderModal(product) {
   if (!modal) modal = buildModal();
   activeProduct = product;
-  modal.querySelector(".modal-product").textContent = product.title;
+  modal.querySelector(".modal-product").textContent = productTitle(product);
   modal.querySelector("form").reset();
   modal.querySelector(".form-status").textContent = "";
   modal.hidden = false;
@@ -291,7 +348,7 @@ async function submitOrder(event) {
   const data = Object.fromEntries(new FormData(form));
 
   submitButton.disabled = true;
-  status.textContent = "Gönderiliyor…";
+  status.textContent = T.sending;
 
   try {
     await createOrder({
@@ -302,11 +359,11 @@ async function submitOrder(event) {
       customer_email: data.customer_email || null,
       note: data.note || null,
     });
-    status.textContent = "Talebiniz alındı, en kısa sürede size dönüş yapacağız.";
+    status.textContent = T.sent;
     form.reset();
   } catch (error) {
     console.error(error);
-    status.textContent = "Gönderilemedi. Lütfen WhatsApp veya telefon ile iletişime geçin.";
+    status.textContent = T.failed;
   } finally {
     submitButton.disabled = false;
   }
@@ -335,5 +392,5 @@ try {
     }
   }
 } catch (error) {
-  console.error("İçerik yüklenemedi:", error);
+  console.error(T.loadError, error);
 }
