@@ -153,8 +153,7 @@ create policy "product_images_admin_delete"
 -- Başlangıç içeriği (sitedeki mevcut metinler ve ürünler)
 -- ---------------------------------------------------------------------------
 insert into public.site_settings (key, value) values
-  ('hero_title', 'Otantik Antikalar, Kalıcı Hikayeler'),
-  ('hero_subtitle', 'Özgünlüğü ve geçmişi garantili, özenle seçilmiş antika ve koleksiyon eşyaları'),
+  ('hero_title', 'Otantik Antikalar, Kalıcı Hikâyeler'),
   ('about_short', 'Home Antique Home, Avrupa''dan tek tek seçilerek getirilen antika ve koleksiyon parçalarını İstanbul''da sizlerle buluşturuyor. Gümüş, porselen ve cam eserlerin büyük bölümü orijinal dönem parçalarıdır.'),
   ('about_long_1', 'Home Antique Home, İstanbul merkezli bir antika ve koleksiyon markasıdır. Koleksiyonumuzdaki parçaların büyük bölümü Avrupa''dan, tek tek seçilerek getirilmiştir: Fransız gümüş kaplamaları, Alman porselenleri, İngiliz mavi-beyaz tabakları ve dönemin cam işçiliği örnekleri.'),
   ('about_long_2', 'Her parçanın orijinalliğine ve durumuna önem veriyoruz; ürünlerimizin çoğu imzalı ya da damgalı dönem eserleridir. Amacımız, geçmişin özenle işlenmiş eserlerini günümüz evlerine taşımak ve müşterilerimize güvenilir bir alışveriş deneyimi sunmaktır.'),
