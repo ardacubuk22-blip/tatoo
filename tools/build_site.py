@@ -144,9 +144,10 @@ SETTINGS = {
         "Site üzerinden ödeme alınmıyor. Siparişiniz WhatsApp üzerinden netleştikten sonra "
         "ödeme yöntemini birlikte belirliyoruz.",
     "sss_kargo":
-        "Türkiye'nin her yerine gönderim yapıyoruz. Cam, porselen ve kristal gibi kırılabilir "
-        "parçalar çift katmanlı ve dolgulu olarak özel paketlenir. İstanbul içinde elden teslim "
-        "de mümkündür; ayrıntıları WhatsApp'tan konuşabiliriz.",
+        "Gönderimlerimizi Yurtiçi Kargo ile yapıyoruz; parçanız genellikle 2-3 gün içinde "
+        "elinizde olur. Cam, porselen ve kristal gibi kırılabilir parçalar çift katmanlı ve "
+        "dolgulu olarak özel paketlenir. İstanbul içinde elden teslim de mümkündür; "
+        "ayrıntıları WhatsApp'tan konuşabiliriz.",
     "sss_iade":
         "Uzaktan yapılan satışlarda tüketici mevzuatının tanıdığı cayma hakkı geçerlidir. "
         "Parçayı teslim aldıktan sonra fikrinizi değiştirirseniz bizimle iletişime geçin; süreci "
