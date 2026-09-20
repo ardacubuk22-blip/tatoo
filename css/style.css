@@ -91,21 +91,27 @@ h1, h2, h3 {
 .header-inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 28px;
   padding: 32px 24px;
+}
+
+/* Menü sağ kenara itilir, logo ve arama solda kalır */
+.main-nav {
+  margin-inline-start: auto;
 }
 
 .logo {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   line-height: 1.3;
 }
 
 .logo-name {
   font-family: var(--font-heading);
-  font-size: 1.55rem;
-  letter-spacing: 3px;
+  font-size: 1.4rem;
+  letter-spacing: 2.5px;
+  white-space: nowrap;
   text-transform: uppercase;
   color: #fff;
 }
@@ -119,7 +125,7 @@ h1, h2, h3 {
 
 .nav-list {
   display: flex;
-  gap: 30px;
+  gap: 22px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -129,6 +135,7 @@ h1, h2, h3 {
   font-size: 0.82rem;
   font-weight: 500;
   letter-spacing: 1.5px;
+  white-space: nowrap;
   text-transform: uppercase;
   color: var(--color-text-on-petrol);
   padding-bottom: 4px;
@@ -160,6 +167,90 @@ h1, h2, h3 {
   height: 2px;
   background: #fff;
   border-radius: 2px;
+}
+
+/* Başlıktaki arama kutusu — galeriye ?q= ile gider */
+.header-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 1 210px;
+  padding: 9px 13px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 2px;
+  transition: border-color 0.2s ease;
+}
+
+.header-search:focus-within {
+  border-color: var(--color-accent);
+}
+
+.header-search input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  color: var(--color-text-on-petrol);
+}
+
+.header-search input::placeholder {
+  color: rgba(236, 228, 214, 0.5);
+}
+
+.header-search input:focus {
+  outline: none;
+}
+
+.header-search button {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-on-petrol);
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22%3E%3Ccircle%20cx%3D%2210.5%22%20cy%3D%2210.5%22%20r%3D%226.8%22%2F%3E%3Cpath%20d%3D%22M20%2020l-4.6-4.6%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22%3E%3Ccircle%20cx%3D%2210.5%22%20cy%3D%2210.5%22%20r%3D%226.8%22%2F%3E%3Cpath%20d%3D%22M20%2020l-4.6-4.6%22%2F%3E%3C%2Fsvg%3E") center / contain no-repeat;
+}
+
+.header-search button:hover {
+  color: var(--color-accent-dark);
+}
+
+/* Galerideki arama kutusu */
+.gallery-search {
+  margin-bottom: 20px;
+}
+
+.gallery-search input {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--color-text);
+}
+
+.gallery-search input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.gallery-search input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.no-results {
+  margin: 40px 0 0;
+  text-align: center;
+  color: var(--color-text-muted);
 }
 
 /* Menüdeki Instagram bağlantısı — simge maske olarak gelir */
@@ -1150,6 +1241,20 @@ section {
   }
 }
 
+/* Üç öğe tek satıra sığmıyor: arama kendi satırına geçer */
+@media (max-width: 1100px) {
+  .header-inner {
+    flex-wrap: wrap;
+  }
+
+  .header-search {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+    margin-top: 16px;
+  }
+}
+
 @media (max-width: 720px) {
   .nav-toggle {
     display: flex;
@@ -1180,8 +1285,15 @@ section {
 
   /* Logo telefonda ikiye bölünmesin */
   .header-inner {
+    flex-wrap: wrap;
     padding: 22px 20px;
   }
+
+  /* Menü butonu sağa yapışsın, arama alt satıra insin */
+  .logo {
+    margin-inline-end: auto;
+  }
+
 
   .logo-name {
     font-size: 1.1rem;

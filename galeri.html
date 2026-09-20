@@ -21,6 +21,12 @@
         <span class="logo-tagline">İSTANBUL</span>
       </a>
 
+      <form class="header-search" action="galeri.html" role="search">
+        <input type="search" name="q" placeholder="Ara&#8230;"
+               aria-label="Koleksiyonda ara" />
+        <button type="submit" aria-label="Ara"></button>
+      </form>
+
       <button class="nav-toggle" id="navToggle" aria-label="Menüyü aç" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -81,6 +87,11 @@
     <section class="gallery">
       <div class="container gallery-layout">
         <aside class="filters">
+          <form class="gallery-search" role="search">
+            <input type="search" id="gallerySearch" name="q"
+                   placeholder="Koleksiyonda ara&#8230;" aria-label="Koleksiyonda ara" />
+          </form>
+
           <button type="button" class="filters-toggle" id="filtersToggle" aria-expanded="false" aria-controls="filtersList">
             Filtreler
           </button>
@@ -418,6 +429,8 @@
               </div>
             </article>
           </div>
+
+        <p class="no-results" id="noResults" hidden>Aramanıza uygun ürün bulunamadı.</p>
         </div>
       </div>
     </section>

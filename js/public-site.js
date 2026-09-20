@@ -101,16 +101,24 @@ function renderProducts(products) {
 // --- Kategori filtresi ---------------------------------------------------
 
 const filterList = document.getElementById("filtersList");
+const searchInput = document.getElementById("gallerySearch");
+
+// Türkçe'de I/İ dönüşümü farklı olduğu için yerele duyarlı karşılaştırma.
+const normalize = (text) => String(text ?? "").toLocaleLowerCase("tr");
+
+let searchQuery = "";
 
 function applyFilter(slug) {
   const cards = document.querySelectorAll("[data-products] .item");
+  const term = normalize(searchQuery);
   let shown = 0;
 
   cards.forEach((card) => {
-    const match =
+    const inCategory =
       slug === "all" ||
       card.dataset.category === slug ||
       card.dataset.subcategory === slug;
+    const match = inCategory && (!term || normalize(card.textContent).includes(term));
     card.hidden = !match;
     if (match) shown += 1;
   });
@@ -120,11 +128,17 @@ function applyFilter(slug) {
   });
 
   const label = filterList.querySelector(`a[data-filter="${slug}"]`);
+  const parts = [];
+  if (slug !== "all") parts.push(label?.childNodes[0].textContent.trim() ?? "");
+  if (searchQuery) parts.push(`"${searchQuery}"`);
+
   const count = document.getElementById("resultCount");
-  count.textContent =
-    slug === "all"
-      ? `${shown} ürün gösteriliyor`
-      : `${label?.childNodes[0].textContent.trim() ?? ""} — ${shown} ürün`;
+  count.textContent = parts.length
+    ? `${parts.join(" · ")} — ${shown} ürün`
+    : `${shown} ürün gösteriliyor`;
+
+  const empty = document.getElementById("noResults");
+  if (empty) empty.hidden = shown > 0;
 }
 
 function currentFilter() {
@@ -162,6 +176,19 @@ if (filterList) {
   });
 
   window.addEventListener("hashchange", () => applyFilter(currentFilter()));
+
+  if (searchInput) {
+    // Başlıktaki kutu buraya ?q= ile gelir.
+    searchQuery = (new URLSearchParams(location.search).get("q") ?? "").trim();
+    searchInput.value = searchQuery;
+
+    searchInput.form?.addEventListener("submit", (event) => event.preventDefault());
+    searchInput.addEventListener("input", () => {
+      searchQuery = searchInput.value.trim();
+      applyFilter(currentFilter());
+    });
+  }
+
   applyFilter(currentFilter());
 }
 

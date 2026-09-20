@@ -243,6 +243,13 @@ def write_nav():
         + submenu_markup() + "\n"
         '          </li>'
     )
+    search_form = (
+        '      <form class="header-search" action="galeri.html" role="search">\n'
+        '        <input type="search" name="q" placeholder="Ara&#8230;"\n'
+        '               aria-label="Koleksiyonda ara" />\n'
+        '        <button type="submit" aria-label="Ara"></button>\n'
+        '      </form>'
+    )
     social = (
         '<li class="nav-social">\n'
         '            <a href="https://www.instagram.com/homeantiquehome" target="_blank"\n'
@@ -261,13 +268,19 @@ def write_nav():
             if not n:
                 print(f"!! {path.name}: Galeri menüsü bulunamadı")
                 continue
+        # Logo ile menü arasına arama kutusu
+        if 'class="header-search"' not in html:
+            html = html.replace(
+                '      <button class="nav-toggle" id="navToggle"',
+                search_form + '\n\n      <button class="nav-toggle" id="navToggle"', 1)
+
         # İletişim'in sağına Instagram bağlantısı
         if 'class="nav-social"' not in html:
             html = html.replace(
                 '<li><a href="iletisim.html">İletişim</a></li>',
                 '<li><a href="iletisim.html">İletişim</a></li>\n          ' + social, 1)
         path.write_text(html, encoding="utf-8")
-    print("menüye kategori listesi ve Instagram bağlantısı yazıldı")
+    print("başlık: arama kutusu, kategori listesi ve Instagram yazıldı")
 
 
 def featured_products():
