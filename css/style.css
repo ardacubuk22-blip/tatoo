@@ -2,11 +2,12 @@
   --color-bg: #15120f;
   --color-bg-alt: #1b1713;
   --color-surface: #221d18;
-  --color-sage: #272c22;
-  --color-sage-dark: #1c2018;
+  /* Markanın ana rengi. Tonu değiştirmek için yalnızca bu iki satır yeter. */
+  --color-petrol: #10454e;
+  --color-petrol-dark: #0b3038;
   --color-text: #ece4d6;
   --color-text-muted: #a2957f;
-  --color-text-on-sage: #ece4d6;
+  --color-text-on-petrol: #ece4d6;
   --color-accent: #c19a5b;
   --color-accent-dark: #dcbb80;
   --color-border: #3b332a;
@@ -81,8 +82,8 @@ h1, h2, h3 {
 
 /* Header */
 .site-header {
-  background: var(--color-sage);
-  color: var(--color-text-on-sage);
+  background: var(--color-petrol);
+  color: var(--color-text-on-petrol);
   position: relative;
   z-index: 100;
 }
@@ -91,7 +92,7 @@ h1, h2, h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px;
+  padding: 32px 24px;
 }
 
 .logo {
@@ -103,7 +104,7 @@ h1, h2, h3 {
 
 .logo-name {
   font-family: var(--font-heading);
-  font-size: 1.4rem;
+  font-size: 1.55rem;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: #fff;
@@ -112,7 +113,7 @@ h1, h2, h3 {
 .logo-tagline {
   font-size: 0.65rem;
   letter-spacing: 4px;
-  color: var(--color-text-on-sage);
+  color: var(--color-text-on-petrol);
   opacity: 0.85;
 }
 
@@ -129,7 +130,7 @@ h1, h2, h3 {
   font-weight: 500;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--color-text-on-sage);
+  color: var(--color-text-on-petrol);
   padding-bottom: 4px;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s ease, color 0.2s ease;
@@ -159,6 +160,148 @@ h1, h2, h3 {
   height: 2px;
   background: #fff;
   border-radius: 2px;
+}
+
+/* Menüdeki açılır kategori listesi.
+   Varsayılan: telefondaki katlanır liste. Masaüstü hâli aşağıdaki
+   min-width sorgusunda — böylece :hover kuralları telefona sızmıyor. */
+.has-submenu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.submenu {
+  display: none;
+  width: 100%;
+  margin: 10px 0 0;
+  padding: 6px 0;
+  list-style: none;
+  background: rgba(0, 0, 0, 0.2);
+  border-inline-start: 2px solid var(--color-accent);
+}
+
+.has-submenu.open .submenu {
+  display: block;
+}
+
+.submenu li {
+  padding: 0;
+  border-bottom: none;
+}
+
+/* Ana menü bağlantısının alt çizgisi burada istenmiyor */
+.submenu a {
+  display: block;
+  padding: 10px 18px;
+  font-size: 0.76rem;
+  border-bottom: none;
+}
+
+.submenu a:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.submenu-toggle {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--color-text-on-petrol);
+  cursor: pointer;
+}
+
+.submenu-toggle::before {
+  content: "";
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.has-submenu.open .submenu-toggle::before {
+  transform: translate(-50%, -20%) rotate(225deg);
+}
+
+/* Masaüstünde: başlığın altına düşen kutu */
+@media (min-width: 721px) {
+  .has-submenu {
+    display: block;
+    position: relative;
+  }
+
+  /* Menü ile kutu arasındaki boşlukta imleç kaybolmasın */
+  .has-submenu::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    height: 18px;
+  }
+
+  .submenu-toggle {
+    display: none;
+  }
+
+  .submenu {
+    position: absolute;
+    top: calc(100% + 16px);
+    right: 0;
+    z-index: 200;
+    display: block;
+    width: auto;
+    min-width: 250px;
+    margin: 0;
+    padding: 10px 0;
+    background: var(--color-petrol-dark);
+    border: 1px solid var(--color-border);
+    border-top: 2px solid var(--color-accent);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+  }
+
+  .has-submenu:hover .submenu,
+  .has-submenu:focus-within .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .submenu a {
+    padding: 9px 22px;
+    white-space: nowrap;
+  }
+}
+
+/* Sayfa başında ve sonunda duran açıklama satırları */
+.page-intro {
+  max-width: 720px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.page-outro {
+  margin: 3rem 0 0;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.page-outro a {
+  color: var(--color-accent-dark);
+  font-weight: 600;
+  border-bottom: 1px solid currentColor;
 }
 
 /* Hero */
@@ -243,7 +386,7 @@ h1, h2, h3 {
 
 /* Page header (non-home pages) */
 .page-header {
-  background: var(--color-sage-dark);
+  background: var(--color-petrol-dark);
   color: #fff;
   text-align: center;
   padding: 60px 24px;
@@ -752,7 +895,7 @@ section {
   position: absolute;
   top: 14px;
   right: 14px;
-  background: var(--color-sage-dark);
+  background: var(--color-petrol-dark);
   color: #fff;
   font-size: 0.7rem;
   font-weight: 700;
@@ -901,7 +1044,7 @@ section {
 
 /* Footer */
 .site-footer {
-  background: var(--color-sage-dark);
+  background: var(--color-petrol-dark);
   color: #d8d4c4;
   padding: 30px 0;
   text-align: center;
@@ -948,7 +1091,7 @@ section {
     position: absolute;
     top: 100%;
     inset-inline: 0;
-    background: var(--color-sage);
+    background: var(--color-petrol);
     display: none;
   }
 
@@ -965,6 +1108,16 @@ section {
   .nav-list li {
     padding: 10px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  /* Logo telefonda ikiye bölünmesin */
+  .header-inner {
+    padding: 22px 20px;
+  }
+
+  .logo-name {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
   }
 
   .collection-grid {

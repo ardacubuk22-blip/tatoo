@@ -30,7 +30,18 @@
           <li><a href="index.html">Ana Sayfa</a></li>
           <li><a href="hakkimizda.html">Hakkımızda</a></li>
           <li><a href="showroom.html">Vitrin</a></li>
-          <li><a href="galeri.html">Galeri</a></li>
+          <li class="has-submenu">
+            <a href="galeri.html">Galeri</a>
+            <button type="button" class="submenu-toggle"
+                    aria-label="Galeri kategorileri" aria-expanded="false"></button>
+            <ul class="submenu">
+              <li><a href="galeri.html#gumus">Gümüş & Gümüş Kaplama</a></li>
+              <li><a href="galeri.html#aydinlatma">Şamdan & Mumluk</a></li>
+              <li><a href="galeri.html#porselen">Porselen & Seramik</a></li>
+              <li><a href="galeri.html#cam">Cam & Kristal</a></li>
+              <li><a href="galeri.html#dekoratif">Dekoratif Objeler</a></li>
+            </ul>
+          </li>
           <li><a href="iletisim.html">İletişim</a></li>
         </ul>
       </nav>
@@ -42,41 +53,77 @@
       <h1>Vitrin</h1>
     </div>
 
-    <section class="split">
-      <div class="container split-grid">
-        <div class="photo-box">
-          <img src="assets/images/cicek-desenli-tabaklar.jpg" alt="Çiçek desenli porselen tabaklar" />
-        </div>
-        <div>
-          <p data-setting="showroom_text">
+    <section>
+      <div class="container">
+        <p data-setting="showroom_text" class="page-intro">
             Avrupa'nın farklı ülkelerinden getirdiğimiz gümüş kaplama sofra takımları, porselen servisler, cam eserler ve dekoratif objeler vitrinimizde sizi bekliyor. Koleksiyon sürekli yenileniyor; yeni gelen parçaları Instagram hesabımızdan takip edebilirsiniz.
           </p>
-          <ul class="info-list">
-            <li><strong>Adres:</strong> <span data-setting="address">Bağdat Caddesi, İstanbul</span></li>
-            <li><strong>Telefon:</strong> <a href="tel:+905557370933" data-setting="phone" data-setting-href="tel">0555 737 09 33</a></li>
-            <li><strong>WhatsApp:</strong> <a href="https://wa.me/905557370933" target="_blank" rel="noopener" data-setting="phone" data-setting-href="whatsapp">0555 737 09 33</a></li>
-            <li><strong>Instagram:</strong> <a href="https://www.instagram.com/homeantiquehome" target="_blank" rel="noopener" data-setting-href="instagram">@homeantiquehome</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
 
-    <section class="gallery">
-      <div class="container">
-        <h2 class="section-title">Koleksiyondan Kareler</h2>
+        <h2 class="section-title">Öne Çıkan Parçalar</h2>
         <div class="divider">✦</div>
 
-        <div class="collection-grid">
-          <div class="photo-box" style="min-height:220px;">
-            <img src="assets/images/christofle-catal-bicak-takimi.jpg" alt="Christofle çatal bıçak takımı" />
-          </div>
-          <div class="photo-box" style="min-height:220px;">
-            <img src="assets/images/mavi-beyaz-servis-tabaklari.jpg" alt="Mavi-beyaz servis tabakları" />
-          </div>
-          <div class="photo-box" style="min-height:220px;">
-            <img src="assets/images/gumus-cay-kasiklari.jpg" alt="Çay kaşığı takımı" />
-          </div>
+        <div class="collection-grid" data-products data-featured>
+          <article class="item" data-category="cam">
+            <div class="item-img">
+              <img src="assets/images/hero-mary-gregory.jpg" alt="Mary Gregory Sürahi ve Bardak Takımı" loading="lazy" />
+            </div>
+            <div class="item-body">
+              <h3>Mary Gregory Sürahi ve Bardak Takımı</h3>
+              <p>Mavi cam üzerine beyaz emaye figür işlemeli, ağız ve kaide kenarları altın yaldızlı orijinal Mary Gregory takımı. Dönemin en sevilen cam işçiliklerinden.</p>
+              <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Merhaba%21%20Sitenizdeki%20Mary%20Gregory%20S%C3%BCrahi%20ve%20Bardak%20Tak%C4%B1m%C4%B1%20ile%20ilgileniyorum." target="_blank" rel="noopener"
+                 data-wa-product data-wa-text="Merhaba! Sitenizdeki Mary Gregory Sürahi ve Bardak Takımı ile ilgileniyorum.">WhatsApp ile Sor</a>
+            </div>
+          </article>
+          <article class="item" data-category="porselen" data-subcategory="servis-takimlari">
+            <div class="item-img">
+              <img src="assets/images/porselen-cay-servisi.jpg" alt="Porselen Çay Servisi" loading="lazy" />
+            </div>
+            <div class="item-body">
+              <h3>Porselen Çay Servisi</h3>
+              <p>Avrupa yapımı, kabartma desenli beyaz porselen çay ve kahve servisi. Demlik, şekerlik, sütlük ve fincanlarıyla eksiksiz takım.</p>
+                <p class="item-price">11.500 ₺</p>
+              <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Merhaba%21%20Sitenizdeki%20Porselen%20%C3%87ay%20Servisi%20ile%20ilgileniyorum." target="_blank" rel="noopener"
+                 data-wa-product data-wa-text="Merhaba! Sitenizdeki Porselen Çay Servisi ile ilgileniyorum.">WhatsApp ile Sor</a>
+            </div>
+          </article>
+          <article class="item" data-category="gumus" data-subcategory="tepsiler">
+            <div class="item-img">
+              <img src="assets/images/gumus-servis-tepsisi.jpg" alt="Christofle Malmaison Tepsi" loading="lazy" />
+            </div>
+            <div class="item-body">
+              <h3>Christofle Malmaison Tepsi</h3>
+              <p>Fransız Christofle'nin ikonik Malmaison koleksiyonundan, inci bordürlü servis tepsisi. Markanın en çok aranan formlarından biri.</p>
+              <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Merhaba%21%20Sitenizdeki%20Christofle%20Malmaison%20Tepsi%20ile%20ilgileniyorum." target="_blank" rel="noopener"
+                 data-wa-product data-wa-text="Merhaba! Sitenizdeki Christofle Malmaison Tepsi ile ilgileniyorum.">WhatsApp ile Sor</a>
+            </div>
+          </article>
+          <article class="item" data-category="gumus" data-subcategory="catal-bicak">
+            <div class="item-img">
+              <img src="assets/images/christofle-catal-bicak-takimi.jpg" alt="Christofle Çatal Bıçak Takımı" loading="lazy" />
+            </div>
+            <div class="item-body">
+              <h3>Christofle Çatal Bıçak Takımı</h3>
+              <p>Christofle imzalı, gümüş kaplama çatal-bıçak takımı. Kepçe, servis çatalı ve pasta spatulası gibi servis parçalarıyla birlikte.</p>
+              <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Merhaba%21%20Sitenizdeki%20Christofle%20%C3%87atal%20B%C4%B1%C3%A7ak%20Tak%C4%B1m%C4%B1%20ile%20ilgileniyorum." target="_blank" rel="noopener"
+                 data-wa-product data-wa-text="Merhaba! Sitenizdeki Christofle Çatal Bıçak Takımı ile ilgileniyorum.">WhatsApp ile Sor</a>
+            </div>
+          </article>
+          <article class="item" data-category="aydinlatma" data-subcategory="samdanlar">
+            <div class="item-img">
+              <img src="assets/images/gumus-samdan-cift.jpg" alt="Gümüş Kaplama Şamdan (Çift)" loading="lazy" />
+            </div>
+            <div class="item-body">
+              <h3>Gümüş Kaplama Şamdan (Çift)</h3>
+              <p>İnci bordürlü, uzun ve zarif formlu şamdan çifti. Avrupa sofra kültürünün klasik parçalarından.</p>
+              <a class="btn btn-whatsapp" href="https://wa.me/905557370933?text=Merhaba%21%20Sitenizdeki%20G%C3%BCm%C3%BC%C5%9F%20Kaplama%20%C5%9Eamdan%20%28%C3%87ift%29%20ile%20ilgileniyorum." target="_blank" rel="noopener"
+                 data-wa-product data-wa-text="Merhaba! Sitenizdeki Gümüş Kaplama Şamdan (Çift) ile ilgileniyorum.">WhatsApp ile Sor</a>
+            </div>
+          </article>
         </div>
+
+        <p class="page-outro">
+          Tüm koleksiyonu görmek için <a href="galeri.html">galeriye göz atın</a>.
+        </p>
       </div>
     </section>
   </main>

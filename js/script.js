@@ -12,6 +12,15 @@ if (navToggle && mainNav) {
   });
 }
 
+// Telefonda kategori listesi oku ile açılır; masaüstünde CSS :hover yeter.
+document.querySelectorAll(".submenu-toggle").forEach((toggle) => {
+  toggle.addEventListener("click", () => {
+    const item = toggle.closest(".has-submenu");
+    const isOpen = item.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", String(isOpen));
+  });
+});
+
 const currentPage = location.pathname.split("/").pop() || "index.html";
 document.querySelectorAll(".nav-list a").forEach((link) => {
   if (link.getAttribute("href") === currentPage) {

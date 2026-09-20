@@ -196,6 +196,7 @@ function fillProductForm(product) {
   productForm.price.value = product.price ?? "";
   productForm.sort_order.value = product.sort_order ?? 0;
   productForm.is_sold.checked = Boolean(product.is_sold);
+  productForm.is_featured.checked = Boolean(product.is_featured);
   productForm.category.value = product.category ?? "";
   fillSubcategorySelect(product.subcategory ?? "");
   productForm.image.value = "";
@@ -243,6 +244,7 @@ async function handleProductSubmit(event) {
     price: form.price.value === "" ? null : Number(form.price.value),
     sort_order: Number(form.sort_order.value) || 0,
     is_sold: form.is_sold.checked,
+    is_featured: form.is_featured.checked,
     category: form.category.value || null,
     subcategory: form.subcategory.value || null,
   };
