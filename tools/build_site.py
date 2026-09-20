@@ -182,10 +182,20 @@ def card(product, indent="            "):
 
 
 def submenu_markup(indent="            "):
-    """Menüdeki Galeri başlığının altına düşen kategori listesi."""
+    """Menüdeki Galeri başlığının altına düşen kategori ve alt kategori listesi."""
     lines = ['<ul class="submenu">']
-    for slug, label, _ in CATEGORIES:
-        lines.append(f'  <li><a href="galeri.html#{slug}">{label}</a></li>')
+    for slug, label, subs in CATEGORIES:
+        if not subs:
+            lines.append(f'  <li><a href="galeri.html#{slug}">{escape(label)}</a></li>')
+            continue
+        lines.append("  <li>")
+        lines.append(f'    <a href="galeri.html#{slug}">{escape(label)}</a>')
+        lines.append('    <ul class="submenu-sub">')
+        for sub_slug, sub_label in subs:
+            lines.append(
+                f'      <li><a href="galeri.html#{sub_slug}">{escape(sub_label)}</a></li>')
+        lines.append("    </ul>")
+        lines.append("  </li>")
     lines.append("</ul>")
     return "\n".join(indent + line for line in lines)
 
